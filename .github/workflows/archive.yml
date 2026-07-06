@@ -1,0 +1,24 @@
+name: archive-iemop
+on:
+  schedule:
+    - cron: "45 22 * * *"   # 06:45 PHT daily, after IEMOP posts the prior day
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch yesterday's files
+        run: python3 pipeline/archive_iemop.py --daily
+      - name: Commit new files
+        run: |
+          git config user.name "archive-bot"
+          git config user.email "archive@localhost"
+          git add data/raw
+          git diff --cached --quiet && echo "nothing new" && exit 0
+          git commit -m "archive: $(date -u +%Y-%m-%d)"
+          git push
