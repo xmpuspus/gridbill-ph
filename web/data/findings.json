@@ -1,0 +1,100 @@
+{
+ "findings": [
+  {
+   "id": "corridor-named",
+   "tag": "The receipts",
+   "title": "The grid names its own choke point",
+   "stat": "A row literally named LEYTE_TO_CEBU appears in the day-ahead runs on 68 of 90 days",
+   "blurb": "IEMOP's congestions-manifesting files put named equipment at 100% of its binding limit. The Tabango (Leyte) to Daanbantayan (Cebu) 230 kV lines that carry this corridor top the league: at a limit on 87 of 90 archive days across the day-ahead and real-time runs, including 131 five-minute real-time intervals on 24 days. The same corridor IEMOP's December 2025 report names in prose.",
+   "source": "IEMOP congestions-manifesting files (RTD + DAP), archive window",
+   "focus": {
+    "center": [
+     124.27,
+     10.7
+    ],
+    "zoom": 7.2,
+    "mode": "choke"
+   }
+  },
+  {
+   "id": "wave-vs-margin",
+   "tag": "The arithmetic",
+   "title": "The announced wave is the size of the margin",
+   "stat": "1,500 MW forecast (DICT, by 2028) against a 3,629 MW May 2026 system supply margin",
+   "blurb": "The DICT forecast alone equals 41% of the whole system's May margin; Meralco has committed 1,000 MW for 10 data centers. The 11 pinned sites with a public figure name 591.3 MW between them, and a data center is near-flat 24/7 load: it consumes margin in every interval, not just at the evening peak.",
+   "source": "IEMOP May 2026 report; DICT via BusinessWorld; PCIJ",
+   "focus": {
+    "center": [
+     121.05,
+     14.45
+    ],
+    "zoom": 8.2,
+    "mode": "supply"
+   }
+  },
+  {
+   "id": "thin-normal",
+   "tag": "Thin is the normal state",
+   "title": "Reserves ran below requirement on most days",
+   "stat": "Luzon scheduled reserves fell below the stated requirement on 54 of 90 archive days",
+   "blurb": "In the operator's own dispatch schedules, load was curtailed on 91 grid-days in this window (4,125.4 MWh), and the Visayas ran short of scheduled reserves on 57 days. Thin margins are the observed normal state, not a forecast.",
+   "source": "IEMOP RTD regional summaries, archive window",
+   "focus": {
+    "center": [
+     121.5,
+     15.0
+    ],
+    "zoom": 6.4,
+    "mode": "supply"
+   }
+  },
+  {
+   "id": "market-prices-geography",
+   "tag": "One market, three prices",
+   "title": "The market prices the geography the day it comes back",
+   "stat": "Administered window: the three grids priced within P0.015/kWh of each other. Market window: a mean daily spread of P5.88/kWh",
+   "blurb": "While WESM was suspended (through 2026-05-01), daily regional prices were near-identical. After trading resumed, the islands split: Luzon P7.65, Visayas P12.96, Mindanao P11.52 per kWh on average, with 28 days spreading beyond P5/kWh and a widest daily spread of P15.722/kWh on 2026-06-08. The links between the islands are the reason the numbers differ.",
+   "source": "IEMOP load-weighted average prices (final), archive window",
+   "focus": {
+    "center": [
+     123.3,
+     11.2
+    ],
+    "zoom": 6.6,
+    "mode": "price"
+   }
+  },
+  {
+   "id": "sual-arithmetic",
+   "tag": "The single contingency",
+   "title": "One plant trip takes 18% of the margin with it",
+   "stat": "One 647 MW Sual unit equals 18% of the May 2026 system margin",
+   "blurb": "Sual's two 647 MW units are the largest single contingencies on the Luzon grid. The archive's outage schedules list a Sual unit out on 0 day(s) in this window; the map's toggle subtracts one unit from the published margin as arithmetic, not a dispatch simulation.",
+   "source": "IEMOP outage schedules used in RTD; IEMOP May 2026 report",
+   "focus": {
+    "center": [
+     120.1,
+     16.12
+    ],
+    "zoom": 7.8,
+    "mode": "choke"
+   }
+  },
+  {
+   "id": "streak-ended",
+   "tag": "Alert season",
+   "title": "A 52-day Visayas alert streak just ended",
+   "stat": "Daily yellow alerts ran 2026-05-11 to 2026-07-01",
+   "blurb": "The streak ended when one 150 MW unit returned; 935.3 MW was still unavailable that day. In the same window the dispatch schedules show the Visayas short of scheduled reserves on 57 days, with 514.61 MWh of load curtailed in the schedules on 2026-06-25 alone.",
+   "source": "NGCP advisories via SunStar and GMA (Jul 1-2, 2026); IEMOP RTD regional summaries",
+   "focus": {
+    "center": [
+     123.7,
+     10.6
+    ],
+    "zoom": 7.0,
+    "mode": "choke"
+   }
+  }
+ ]
+}

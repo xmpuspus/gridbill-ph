@@ -7,18 +7,45 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: archive-iemop
+  cancel-in-progress: false
+
 jobs:
   archive:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Fetch yesterday's files
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+      - name: Fetch everything newer than the archive
+        id: fetch
+        # continue so a partial IEMOP failure still commits what DID arrive;
+        # the explicit red steps at the end keep the failure visible.
+        continue-on-error: true
         run: python3 pipeline/archive_iemop.py --daily
-      - name: Commit new files
+      - name: Commit raw files first (the archive is the irreplaceable asset)
         run: |
           git config user.name "archive-bot"
           git config user.email "archive@localhost"
           git add data/raw
-          git diff --cached --quiet && echo "nothing new" && exit 0
-          git commit -m "archive: $(date -u +%Y-%m-%d)"
-          git push
+          git diff --cached --quiet && echo "no new raw files" || {
+            git commit -m "archive: $(date -u +%Y-%m-%d)"
+            git push
+          }
+      - name: Rebake web data from the archive
+        run: python3 pipeline/build_data.py
+      - name: Data pins + banned-framing gate
+        run: |
+          python3 tests/test_data.py
+          python3 tests/qa_gate.py
+      - name: Commit rebaked web data
+        run: |
+          git add web/data
+          git diff --cached --quiet && echo "bake unchanged" || {
+            git commit -m "bake: $(date -u +%Y-%m-%d)"
+            git push
+          }
+      - name: Fail red if the fetch failed
+        if: steps.fetch.outcome == 'failure'
+        run: exit 1
+      - name: Staleness gate (red when the archive stops growing)
+        run: python3 pipeline/archive_iemop.py --check

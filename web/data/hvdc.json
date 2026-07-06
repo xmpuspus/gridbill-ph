@@ -11,5 +11,7 @@
   "START_TIME"
  ],
  "files": 90,
- "note": "schema captured; per-interval limit series is a v1.1 layer"
+ "limit_rows": 0,
+ "limit_days": [],
+ "note": "no HVDC limit events recorded in RTD in this window; the binding evidence for the links is in IEMOP's monthly reports"
 }

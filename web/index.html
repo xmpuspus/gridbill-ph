@@ -8,7 +8,10 @@
 <meta property="og:title" content="gridbill-ph" />
 <meta property="og:description" content="Can the Philippine grid host the data-center wave? The choke points already bind daily; the market prices them. Built on IEMOP's own public files." />
 <meta property="og:type" content="website" />
+<!-- og:image is relative pre-deploy; absolutize together with og:url at deploy -->
+<meta property="og:image" content="og.png" />
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="og.png" />
 <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet"
   integrity="sha384-MinO0mNliZ3vwppuPOUnGa+iq619pfMhLVUXfC4LHwSCvF9H+6P/KO4Q7qBOYV5V" crossorigin="anonymous" />
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"
@@ -84,6 +87,43 @@
   }
   .hovpop .maplibregl-popup-content{ padding:6px 9px; font-size:11.5px; border-radius:7px; box-shadow:0 1px 6px rgba(16,33,43,.14); max-width:260px; }
   .hovpop .maplibregl-popup-content b{ font-size:12px; } .hovpop .maplibregl-popup-tip{ display:none; }
+  /* findings drawer */
+  #fopen{ width:100%; margin-top:9px; border:1px solid var(--line); background:#fff;
+    color:var(--ink); border-radius:7px; padding:7px 10px; cursor:pointer; font-size:12.5px; font-weight:600;
+    text-align:left; display:flex; justify-content:space-between; align-items:center; }
+  #fopen:hover{ background:#f5f8f9; }
+  #findings{ position:absolute; z-index:6; top:12px; left:12px; bottom:12px; width:356px;
+    max-width:calc(100% - 24px); display:none; flex-direction:column; padding:0; }
+  #findings.open{ display:flex; }
+  #fhead{ display:flex; align-items:center; justify-content:space-between; padding:11px 14px 9px;
+    border-bottom:1px solid var(--line); }
+  #fhead h2{ margin:0; font-size:14px; }
+  #fclose{ border:0; background:none; font-size:20px; cursor:pointer; color:var(--muted); line-height:1; }
+  #flist{ overflow-y:auto; padding:10px 12px 12px; }
+  .fcard{ border:1px solid var(--line); border-radius:8px; padding:9px 11px; margin-bottom:8px; cursor:pointer; }
+  .fcard:hover{ background:#f7fafb; }
+  .fcard.on{ border-color:var(--ink); box-shadow:0 0 0 1px var(--ink) inset; }
+  .ftag{ font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:var(--muted); }
+  .fcard h3{ margin:3px 0 4px; font-size:13.5px; line-height:1.32; }
+  .fstat{ font-size:12.5px; font-weight:700; }
+  .fblurb{ font-size:12px; color:var(--muted); line-height:1.45; margin-top:5px; }
+  .fsrc{ font-size:10.5px; color:var(--muted); font-style:italic; margin-top:5px; }
+  #banner{ position:absolute; z-index:7; top:62px; left:50%; transform:translateX(-50%);
+    background:#fff6f5; border:1px solid #e2664b; color:#7a2a17; border-radius:8px;
+    padding:7px 12px; font-size:12px; display:none; max-width:min(560px, calc(100% - 24px)); }
+  #mside{ display:none; }
+  @media(max-width:640px){
+    #head{ max-height:32vh; overflow-y:auto; }
+    #rail{ max-height:44vh; }
+    .r-blurb{ display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden; }
+    #modebar{ bottom:calc(44vh + 18px); }
+    #findings{ right:12px; width:auto; }
+    #mside{ display:block; position:absolute; z-index:5; right:12px; bottom:calc(44vh + 64px);
+      border:1px solid var(--line); background:#fff; border-radius:7px; padding:7px 11px;
+      font-size:12.5px; font-weight:600; color:var(--ink); cursor:pointer; }
+    body.show-side #side{ display:block; position:absolute; z-index:6; left:12px; right:12px;
+      top:12px; width:auto; max-height:60vh; }
+  }
 </style>
 </head>
 <body>
@@ -96,7 +136,18 @@
   megawatts land, and what the spot market and the bill are doing.</p>
   <div class="scope" id="scope">Archive window loading. Corridor lines are schematic
   links between named endpoints, not route maps. Data-center pins are city-precision.</div>
+  <button id="fopen"><span>Key findings, computed from the archive</span><span>&rarr;</span></button>
 </div>
+
+<div id="banner" role="alert"></div>
+
+<div id="findings" class="panel" aria-label="Key findings">
+  <div id="fhead"><h2>Key findings</h2>
+    <button id="fclose" title="close" aria-label="close">&times;</button></div>
+  <div id="flist"></div>
+</div>
+
+<button id="mside" class="panel">Details</button>
 
 <div id="modebar" class="panel" role="tablist">
   <button class="mode on" data-mode="supply" role="tab">1 Supply</button>
@@ -135,7 +186,8 @@
 
 <script>
 window.__diag = { ready:false, mode:"supply", chokepoints:0, dcs:0, league:0,
-  priceDays:0, railIndex:0, answers:false, sual:false, layers:0 };
+  priceDays:0, railIndex:0, answers:false, sual:false, layers:0,
+  findings:0, drawerOpen:false, activeFinding:null, fetchFailures:[], baked:null };
 
 const $ = (id) => document.getElementById(id);
 const fmt = (n, d=0) => n == null ? "n/a" :
@@ -143,13 +195,23 @@ const fmt = (n, d=0) => n == null ? "n/a" :
 
 const FILES = ["meta.json","answers.json","congestion.json","prices.json",
   "reliability.json","outages.json","market_anchors.json","demand_anchors.json",
-  "congestion_premium.json","chokepoints.geojson","dc_sites.geojson","sual.geojson"];
+  "congestion_premium.json","findings.json","chokepoints.geojson",
+  "dc_sites.geojson","sual.geojson"];
 const D = {};
 
 async function loadAll(){
   const rs = await Promise.allSettled(FILES.map(f =>
     fetch("data/" + f).then(r => r.ok ? r.json() : null)));
   FILES.forEach((f, i) => { D[f] = rs[i].status === "fulfilled" ? rs[i].value : null; });
+  const failed = FILES.filter((f, i) => rs[i].status !== "fulfilled" || rs[i].value == null);
+  if (failed.length){
+    window.__diag.fetchFailures = failed;
+    console.warn("gridbill-ph: data files failed to load:", failed.join(", "));
+    const b = $("banner");
+    b.textContent = "Some data files failed to load (" + failed.join(", ") +
+      "); parts of the map may be empty.";
+    b.style.display = "block";
+  }
 }
 
 const map = new maplibregl.Map({
@@ -170,50 +232,81 @@ map.addControl(new maplibregl.NavigationControl({ showCompass:false }), "bottom-
 
 const pop = new maplibregl.Popup({ closeButton:false, closeOnClick:false, className:"hovpop" });
 
+function parseJSON(s){ try { return JSON.parse(s); } catch { return null; } }
+
 function addLayers(){
-  map.addSource("choke", { type:"geojson", data: D["chokepoints.geojson"] });
-  map.addLayer({ id:"choke-line", type:"line", source:"choke",
-    layout:{ "line-cap":"round" },
-    paint:{
-      "line-color": ["match", ["get","kind"], "hvdc", "#9c3d12", "#3a6b8a"],
-      "line-width": ["case", ["==", ["get","kind"], "hvdc"], 3.4, 2.4],
-      "line-dasharray": [1.6, 1.4],
-      "line-opacity": .9
-    }});
-  map.addSource("dc", { type:"geojson", data: D["dc_sites.geojson"] });
-  map.addLayer({ id:"dc-pt", type:"circle", source:"dc",
-    paint:{
-      "circle-radius": ["case", ["to-boolean", ["get","mw"]],
-        ["interpolate", ["linear"], ["get","mw"], 3, 5, 50, 11, 300, 20], 4.5],
-      "circle-color": ["match", ["get","status"],
-        "operational", "#1a7f48", "under_construction", "#b8860b", "#8a97a0"],
-      "circle-opacity": ["case", ["to-boolean", ["get","mw"]], .82, .18],
-      "circle-stroke-width": 1.4,
-      "circle-stroke-color": ["match", ["get","status"],
-        "operational", "#125c34", "under_construction", "#8a6508", "#5b6b75"]
-    }});
-  map.addSource("sual", { type:"geojson", data: D["sual.geojson"] });
-  map.addLayer({ id:"sual-pt", type:"circle", source:"sual",
-    paint:{ "circle-radius": 8, "circle-color":"#fff",
-      "circle-stroke-width": 3, "circle-stroke-color": "#b3261e" }});
-  window.__diag.layers = 3;
+  let n = 0;
+  if (D["chokepoints.geojson"]){
+    map.addSource("choke", { type:"geojson", data: D["chokepoints.geojson"] });
+    map.addLayer({ id:"choke-line", type:"line", source:"choke",
+      layout:{ "line-cap":"round" },
+      paint:{
+        "line-color": ["match", ["get","kind"], "hvdc", "#9c3d12", "#3a6b8a"],
+        "line-width": ["case", ["==", ["get","kind"], "hvdc"], 3.4, 2.4],
+        "line-dasharray": [1.6, 1.4],
+        "line-opacity": .9
+      }});
+    n++;
+  }
+  if (D["dc_sites.geojson"]){
+    map.addSource("dc", { type:"geojson", data: D["dc_sites.geojson"] });
+    map.addLayer({ id:"dc-pt", type:"circle", source:"dc",
+      paint:{
+        "circle-radius": ["case", ["to-boolean", ["get","mw"]],
+          ["interpolate", ["linear"], ["get","mw"], 3, 5, 50, 11, 300, 20], 4.5],
+        "circle-color": ["match", ["get","status"],
+          "operational", "#1a7f48", "under_construction", "#b8860b", "#8a97a0"],
+        "circle-opacity": ["case", ["to-boolean", ["get","mw"]], .82, .18],
+        "circle-stroke-width": 1.4,
+        "circle-stroke-color": ["match", ["get","status"],
+          "operational", "#125c34", "under_construction", "#8a6508", "#5b6b75"]
+      }});
+    n++;
+  }
+  if (D["sual.geojson"]){
+    map.addSource("sual", { type:"geojson", data: D["sual.geojson"] });
+    map.addLayer({ id:"sual-pt", type:"circle", source:"sual",
+      paint:{ "circle-radius": 8, "circle-color":"#fff",
+        "circle-stroke-width": 3, "circle-stroke-color": "#b3261e" }});
+    n++;
+  }
+  window.__diag.layers = n;
 
   const hover = (layer, html) => {
-    map.on("mousemove", layer, e => {
+    if (!map.getLayer(layer)) return;
+    const show = e => {
       map.getCanvas().style.cursor = "pointer";
       pop.setLngLat(e.lngLat).setHTML(html(e.features[0].properties)).addTo(map);
-    });
+    };
+    map.on("mousemove", layer, show);
+    map.on("click", layer, show);   // touch devices get the same readout on tap
     map.on("mouseleave", layer, () => { map.getCanvas().style.cursor = ""; pop.remove(); });
   };
-  hover("choke-line", p => `<b>${p.name}</b><br>${p.evidence}` +
-    (p.capacity_mw ? `<br>Capacity ${fmt(p.capacity_mw)} MW` : "") +
-    (p.operating_limit_mw ? `, operating limit ${fmt(p.operating_limit_mw)} MW` : "") +
-    `<br><i>Schematic link between named endpoints.</i>`);
-  hover("dc-pt", p => `<b>${p.name}</b><br>${p.city} &middot; ${String(p.status||"").replace("_"," ")}` +
+  hover("choke-line", p => {
+    const r = typeof p.receipts === "string" ? parseJSON(p.receipts) : p.receipts;
+    let receiptLine = "";
+    if (r){
+      receiptLine = `<br><b>Archive receipts:</b> at a limit on ${fmt(r.days)} of ` +
+        `the window's days` +
+        (r.rtd_intervals ? `, including ${fmt(r.rtd_intervals)} five-minute ` +
+          `real-time intervals on ${fmt(r.rtd_days)} days` : "") + ".";
+      if (r.matched_equipment && r.matched_equipment.length)
+        receiptLine += `<br>Named lines: ` +
+          r.matched_equipment.slice(0, 3).map(m => esc(m.name)).join(", ") + ".";
+    } else if (p.window_note){
+      receiptLine = `<br><i>${esc(p.window_note)}</i>`;
+    }
+    return `<b>${esc(p.name)}</b><br>${esc(p.evidence)}` +
+      (p.capacity_mw ? `<br>Capacity ${fmt(p.capacity_mw)} MW` : "") +
+      (p.operating_limit_mw ? `, operating limit ${fmt(p.operating_limit_mw)} MW` : "") +
+      receiptLine +
+      `<br><i>Schematic link between named endpoints.</i>`;
+  });
+  hover("dc-pt", p => `<b>${esc(p.name)}</b><br>${esc(p.city)} &middot; ${esc(String(p.status||"").replace("_"," "))}` +
     (p.mw ? `<br>${fmt(p.mw,1)} MW (public figure)` : "<br>No public MW figure") +
-    (p.note ? `<br>${p.note}` : "") + `<br><i>Pin is city-precision.</i>`);
-  hover("sual-pt", p => `<b>${p.name}</b><br>${p.location}<br>` +
-    `${p.units} x ${fmt(p.unit_mw)} MW, the largest single units on the Luzon grid.`);
+    (p.note ? `<br>${esc(p.note)}` : "") + `<br><i>Pin is city-precision.</i>`);
+  hover("sual-pt", p => `<b>${esc(p.name)}</b><br>${esc(p.location)}<br>` +
+    `${fmt(p.units)} x ${fmt(p.unit_mw)} MW, the largest single units on the Luzon grid.`);
 }
 
 /* ---------- rail ---------- */
@@ -230,8 +323,8 @@ function railRender(){
   const modes = ["supply","choke","price"];
   setMode(modes[RAIL_I], false);
 }
-$("r-prev").onclick = () => { if (RAIL_I > 0){ RAIL_I--; railRender(); } };
-$("r-next").onclick = () => { if (RAIL_I < RAIL.length - 1){ RAIL_I++; railRender(); } };
+$("r-prev").onclick = () => { if (RAIL_I > 0){ clearActive(); RAIL_I--; railRender(); } };
+$("r-next").onclick = () => { if (RAIL_I < RAIL.length - 1){ clearActive(); RAIL_I++; railRender(); } };
 
 /* ---------- side panel per mode ---------- */
 let MODE = "supply", SUAL_ON = false;
@@ -270,9 +363,10 @@ function sideSupply(){
   count with its owner; none is our estimate. Operational capacity today is
   contested: ${contested ? esc(contested.owner) + " put it between " +
   fmt(contested.mw_low) + " and " + fmt(contested.mw_high) + " MW" : "n/a"}.
-  The margin is system-wide; Visayas ran ${fmt((D["market_anchors.json"]||{}).visayas_yellow_streak_weeks)}
-  straight weeks of yellow alerts in June 2026 with ${fmt((D["market_anchors.json"]||{}).visayas_forced_outage_mw)}
-  MW on forced outage, so the national number overstates local headroom.</div>`;
+  The margin is system-wide; the Visayas grid ran a ${fmt((D["market_anchors.json"]||{}).visayas_yellow_streak_days)}-day
+  daily yellow-alert streak that ended ${esc((D["market_anchors.json"]||{}).visayas_yellow_streak_to)}
+  (${fmt((D["market_anchors.json"]||{}).visayas_unavailable_mw_jul1)} MW still unavailable that day),
+  so the national number overstates local headroom.</div>`;
 }
 function barRow(label, val, max, color, low){
   const pct = Math.max(2, Math.round(100 * (val || 0) / (max || 1)));
@@ -288,7 +382,7 @@ function sideChoke(){
   const league = (C.league || []).slice(0, 10);
   let rows = league.map(e =>
     `<tr><td>${esc(e.equipment)}</td><td>${esc(e.station)}</td>
-     <td class="num">${fmt(e.days)}</td><td class="num">${fmt(e.intervals)}</td></tr>`).join("");
+     <td class="num">${fmt(e.days)}</td><td class="num">${fmt(e.rtd_intervals)}</td></tr>`).join("");
   const O = D["outages.json"] || {};
   const sualDays = O.sual_outage_day_count;
   const R = D["reliability.json"];
@@ -302,10 +396,13 @@ function sideChoke(){
   }
   return `<h2>Where the grid already binds</h2>
   <p class="sub">Named equipment at its limit, straight from IEMOP's public
-  "congestions manifesting" files over the archive window. The Leyte-Luzon HVDC
-  ran at its ${fmt(A.hvdc_binding_share_dec2025_pct)}% share of the December 2025
-  billing period at max or offline (IEMOP monthly report).</p>
-  <table><thead><tr><th>Equipment</th><th>Station</th><th>Days</th><th>5-min rows</th></tr></thead>
+  "congestions manifesting" files over the archive window. Ranked by days at a
+  limit (a day counts once, so a re-run cannot inflate it). "RT intervals" is the
+  count of five-minute real-time dispatch rows; the day-ahead runs re-price
+  hourly and are kept separate. The Leyte-Luzon HVDC ran at its
+  ${fmt(A.hvdc_binding_share_dec2025_pct)}% share of the December 2025 billing
+  period at max or offline (IEMOP monthly report).</p>
+  <table><thead><tr><th>Equipment</th><th>Station</th><th>Days</th><th>RT intervals</th></tr></thead>
   <tbody>${rows || "<tr><td colspan=4>Bake pending.</td></tr>"}</tbody></table>
   ${slackline}
   <button class="sual-btn" id="sualbtn">What if a Sual unit trips? (-647 MW)</button>
@@ -329,15 +426,22 @@ function sideprice(){
     <div class="kv"><span>Meralco June generation charge</span><span>P${fmt(A.meralco_june2026_generation_charge,2)}/kWh</span></div>
     <div class="kv"><span>Meralco June overall rate</span><span>P${fmt(A.meralco_june2026_rate_php_kwh,2)}/kWh</span></div>
     <div class="kv"><span>June change</span><span>+P${fmt(A.meralco_june2026_delta_php_kwh,4)}/kWh</span></div>`;
+  const rg = (P.regimes || {}), mk = rg.market || {}, ad = rg.administered || {};
+  const regimeNote = (mk.mean_spread != null && ad.max_spread != null) ? `<div class="note">
+    While WESM ran administered prices (through ${esc(P.resumed)}), the three grids
+    stayed within P${fmt(ad.max_spread,2)}/kWh of each other. After trading resumed,
+    the mean daily spread was P${fmt(mk.mean_spread,2)}/kWh across ${fmt(mk.days)} days.
+    The chart shows both regimes; the flat stretch is the suspension.</div>` : "";
   return `<h2>What it does to prices</h2>
-  <p class="sub">Daily load-weighted average price per grid from the archive.
-  May 2026, the first full month after the market resumed, averaged
-  P${fmt(A.wesm_may2026_system_avg_php_kwh,2)}/kWh system-wide
+  <p class="sub">Each day's average of the load-weighted five-minute prices per
+  grid, from the archive. May 2026, the first full month after the market resumed,
+  averaged P${fmt(A.wesm_may2026_system_avg_php_kwh,2)}/kWh system-wide
   (+${fmt(A.wesm_may2026_vs_april_pct,1)}% vs April): Luzon
   P${fmt(A.wesm_may2026_luzon,2)}, Visayas P${fmt(A.wesm_may2026_visayas,2)},
   Mindanao P${fmt(A.wesm_may2026_mindanao,2)}. One grid on paper; the links
   between the islands are the reason the numbers differ.</p>
   <div id="spark">${spark || '<div class="note">Price bake pending.</div>'}</div>
+  ${regimeNote}
   ${P.max_spread && P.max_spread.date ? `<div class="note">Widest daily
   regional spread in the window: P${fmt(P.max_spread.php,2)}/kWh on
   ${esc(P.max_spread.date)}.</div>` : ""}
@@ -406,7 +510,12 @@ function setMode(m, syncRail = true){
   legendRender();
   if (m === "choke"){
     const btn = $("sualbtn");
-    if (btn) btn.onclick = () => sualToggle(btn);
+    // re-rendering the panel drops the button's visual state; re-apply SUAL_ON
+    // so the toggle does not desync across mode switches.
+    if (btn){
+      btn.onclick = () => sualToggle(btn);
+      if (SUAL_ON){ SUAL_ON = false; sualToggle(btn); }
+    }
   }
   if (map.getLayer("dc-pt"))
     map.setLayoutProperty("dc-pt", "visibility", m === "choke" ? "none" : "visible");
@@ -414,9 +523,16 @@ function setMode(m, syncRail = true){
     const idx = ["supply","choke","price"].indexOf(m);
     if (idx >= 0 && idx !== RAIL_I){ RAIL_I = idx; railRender(); }
   }
+  syncURL();
+}
+function clearActive(){
+  if (ACTIVE != null){
+    ACTIVE = null; window.__diag.activeFinding = null;
+    if ($("findings").classList.contains("open")) renderFindings();
+  }
 }
 document.querySelectorAll(".mode").forEach(b =>
-  b.onclick = () => setMode(b.dataset.mode));
+  b.onclick = () => { clearActive(); setMode(b.dataset.mode); });
 
 function sualToggle(btn){
   SUAL_ON = !SUAL_ON; window.__diag.sual = SUAL_ON;
@@ -439,17 +555,83 @@ function sualToggle(btn){
   }
 }
 
+/* ---------- findings drawer ---------- */
+let FINDINGS = [], ACTIVE = null;
+function renderFindings(){
+  const list = $("flist");
+  if (!FINDINGS.length){
+    list.innerHTML = `<p class="note">Findings bake pending. Run make data.</p>`;
+    return;
+  }
+  list.innerHTML = `<p class="note" style="margin:2px 4px 9px">Tap a finding to
+    fly the map to the evidence it is about.</p>`;
+  for (const f of FINDINGS){
+    const card = document.createElement("div");
+    card.className = "fcard" + (ACTIVE === f.id ? " on" : "");
+    card.innerHTML = `<div class="ftag">${esc(f.tag)}</div><h3>${esc(f.title)}</h3>` +
+      `<div class="fstat">${esc(f.stat)}</div><div class="fblurb">${esc(f.blurb)}</div>` +
+      (f.source ? `<div class="fsrc">${esc(f.source)}</div>` : "");
+    card.onclick = () => selectFinding(f);
+    list.appendChild(card);
+  }
+}
+function selectFinding(f){
+  ACTIVE = f.id; window.__diag.activeFinding = f.id;
+  if (f.focus && f.focus.mode) setMode(f.focus.mode, true);
+  if (f.focus && f.focus.center)
+    map.flyTo({ center: f.focus.center, zoom: f.focus.zoom || 7, duration: 900 });
+  renderFindings(); syncURL();
+}
+function openDrawer(o){
+  $("findings").classList.toggle("open", o);
+  window.__diag.drawerOpen = o;
+  if (o) renderFindings();
+}
+$("fopen").onclick = () => openDrawer(true);
+$("fclose").onclick = () => { openDrawer(false); };
+$("mside").onclick = () => document.body.classList.toggle("show-side");
+
+/* ---------- URL state (deep-linkable mode + finding) ---------- */
+let URL_READY = false;
+function syncURL(){
+  if (!URL_READY) return;
+  const p = new URLSearchParams();
+  if (MODE && MODE !== "supply") p.set("q", MODE);
+  if (ACTIVE) p.set("finding", ACTIVE);
+  const qs = p.toString();
+  history.replaceState(null, "", qs ? "?" + qs : location.pathname);
+}
+function applyURL(){
+  const p = new URLSearchParams(location.search);
+  const q = p.get("q"), fid = p.get("finding");
+  if (q && ["supply","choke","price"].includes(q)) setMode(q, true);
+  if (fid){
+    const f = FINDINGS.find(x => x.id === fid);
+    if (f){ openDrawer(true); selectFinding(f); }
+  }
+}
+
 /* ---------- boot ---------- */
 loadAll().then(() => {
   const A = D["answers.json"];
   const M = D["meta.json"] || {};
   const C = D["congestion.json"] || {};
+  const F = D["findings.json"] || {};
+  const P = D["prices.json"] || {};
   window.__diag.answers = !!A;
   window.__diag.league = (C.league || []).length;
-  if (C.window) $("scope").textContent =
-    `IEMOP archive window ${C.window.from} to ${C.window.to} (` +
-    `${fmt(C.days_covered)} days; the public window is rolling, this repo keeps ` +
-    `the history). Corridor lines are schematic. Data-center pins are city-precision.`;
+  window.__diag.baked = M.built_utc || null;
+  FINDINGS = F.findings || [];
+  window.__diag.findings = FINDINGS.length;
+  if (C.window){
+    const asOf = P.as_of ? `, prices through ${P.as_of}` : "";
+    const built = M.built_utc ? ` Baked ${String(M.built_utc).slice(0,10)}.` : "";
+    $("scope").textContent =
+      `IEMOP archive window ${C.window.from} to ${C.window.to} (` +
+      `${fmt(C.days_covered)} days${asOf}; the public window is rolling, this repo ` +
+      `keeps the history).${built} Corridor lines are schematic. Data-center pins ` +
+      `are city-precision.`;
+  }
   RAIL = A ? [
     { tag:"Q1 Supply", ...A.q1 },
     { tag:"Q2 Infrastructure", ...A.q2 },
@@ -460,10 +642,11 @@ loadAll().then(() => {
     { tag:"Q3", title:"What happens to prices?", stat:"Bake pending" },
   ];
   const draw = () => {
-    if (D["chokepoints.geojson"]) addLayers();
+    addLayers();
     window.__diag.chokepoints = (D["chokepoints.geojson"]||{features:[]}).features.length;
     window.__diag.dcs = (D["dc_sites.geojson"]||{features:[]}).features.length;
     railRender(); setMode("supply", false);
+    URL_READY = true; applyURL();
     window.__diag.ready = true;
   };
   if (map.isStyleLoaded()) draw(); else map.once("load", draw);

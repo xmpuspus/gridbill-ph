@@ -24,7 +24,8 @@
     "operating_limit_mw": 250,
     "evidence": "At its 250 MW Luzon-to-Visayas limit or offline 69% of the Dec 2025 billing period (IEMOP)",
     "src": "https://www.iemop.ph/news/december-2025-power-market-luzon-prices-ease-as-supply-improves-visayas-and-mindanao-experience-tighter-conditions/",
-    "precision": "schematic"
+    "precision": "schematic",
+    "window_note": "No RTD HVDC limit events recorded in this archive window; binding evidence is from IEMOP's monthly reports."
    }
   },
   {
@@ -50,7 +51,8 @@
     "operating_limit_mw": null,
     "evidence": "Frequently at maximum or security-limited transfer levels in May 2026 (IEMOP monthly report)",
     "src": "https://powerphilippines.com/wesm-prices-rise-38-5-in-may-as-demand-growth-outpaces-supply/",
-    "precision": "schematic"
+    "precision": "schematic",
+    "window_note": "No RTD HVDC limit events recorded in this archive window; binding evidence is from IEMOP's monthly reports."
    }
   },
   {
@@ -76,7 +78,29 @@
     "operating_limit_mw": null,
     "evidence": "Named congested corridor limiting internal Visayas transfers, elevating Leyte nodal prices (IEMOP Dec 2025)",
     "src": "https://www.iemop.ph/news/december-2025-power-market-luzon-prices-ease-as-supply-improves-visayas-and-mindanao-experience-tighter-conditions/",
-    "precision": "schematic"
+    "precision": "schematic",
+    "receipts": {
+     "days": 87,
+     "rtd_intervals": 131,
+     "rtd_days": 24,
+     "dap_rows": 16082,
+     "dap_days": 87,
+     "max_overload_mw": 26.73,
+     "matched_equipment": [
+      {
+       "name": "5DAAN_4TAB2",
+       "rows": 8778
+      },
+      {
+       "name": "5DAAN_4TAB1",
+       "rows": 5303
+      },
+      {
+       "name": "LEYTE_TO_CEBU",
+       "rows": 2132
+      }
+     ]
+    }
    }
   },
   {
@@ -134,8 +158,8 @@
     "kind": "ac",
     "capacity_mw": null,
     "operating_limit_mw": null,
-    "evidence": "Backbone reinforced 2024 to relieve Region 6 constraints; Visayas ran 7 straight weeks of yellow alerts in June 2026",
-    "src": "https://cebudailynews.inquirer.net/740334/visayas-grid-enters-7th-straight-week-of-yellow-alerts",
+    "evidence": "Backbone reinforced 2024 to relieve Region 6 constraints; the Visayas grid ran a 52-day daily yellow-alert streak that ended Jul 1, 2026",
+    "src": "https://www.sunstar.com.ph/cebu/visayas-grid-exits-daily-yellow-alerts",
     "precision": "schematic"
    }
   }

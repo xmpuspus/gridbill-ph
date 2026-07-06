@@ -15,7 +15,8 @@ Uses curl via subprocess (macOS python3 + requests has TLS issues; curl exists
 on both macOS and ubuntu runners).
 
     python3 pipeline/archive_iemop.py --backfill                # full window
-    python3 pipeline/archive_iemop.py --daily                   # last 2 PHT days
+    python3 pipeline/archive_iemop.py --daily     # newer than newest on disk
+    python3 pipeline/archive_iemop.py --check     # staleness gate (cron tail)
     python3 pipeline/archive_iemop.py --only RTDCV,LWAPF
     python3 pipeline/archive_iemop.py --backfill --dipcef-days 3
 """
@@ -111,6 +112,10 @@ def looks_valid(dest: str) -> bool:
 def fetch(slug: str, b64: str, dest: str) -> bool:
     code, body = curl([f"{BASE}/{slug}/?md_file={b64}", "-o", dest])
     if code != 0:
+        # curl -o writes partial output on failure; a truncated file left on
+        # disk would pass looks_valid() next run and poison the archive.
+        if os.path.exists(dest):
+            os.remove(dest)
         return False
     if not looks_valid(dest):
         if os.path.exists(dest):
@@ -125,7 +130,7 @@ def recent_pht_stamps(days: int) -> set[str]:
 
 
 def wanted(key: str, name: str, mode: str, dipcef_days: int,
-           newest_stamp: str = "") -> bool:
+           newest_stamp: str = "", newest_on_disk: str = "") -> bool:
     m = re.search(r"(\d{8})", name)
     stamp = m.group(1) if m else ""
     if key == "DIPCEF":
@@ -138,13 +143,21 @@ def wanted(key: str, name: str, mode: str, dipcef_days: int,
                 for d in range(dipcef_days)}
         return stamp in keep
     if mode == "daily":
+        # Fetch everything newer than what is already on disk, not a fixed
+        # 2-day lookback: final datasets publish with a lag (LWAPF ran ~10
+        # days behind when measured on 2026-07-05), and a cron outage must
+        # self-heal within the public window instead of leaving holes.
+        if newest_on_disk:
+            return stamp > newest_on_disk
         return stamp in recent_pht_stamps(2)
     return True
 
 
-def archive(keys: list[str], mode: str, dipcef_days: int) -> dict:
+def archive(keys: list[str], mode: str, dipcef_days: int) -> list[str]:
+    """Fetch into data/raw/, update manifest.json, return failure strings."""
     manifest_path = os.path.join(RAW, "manifest.json")
     manifest = {}
+    failures: list[str] = []
     if os.path.exists(manifest_path):
         with open(manifest_path) as f:
             manifest = json.load(f)
@@ -158,14 +171,19 @@ def archive(keys: list[str], mode: str, dipcef_days: int) -> dict:
             files = list_files(slug, post_id)
         except (RuntimeError, json.JSONDecodeError) as e:
             print(f"{key}: LIST FAILED: {e}")
+            failures.append(f"{key}: list failed: {e}")
             continue
         fetched = skipped = errors = 0
         consecutive = 0
         stamps_all = [m.group(1) for _, n in files
                       if (m := re.search(r"(\d{8})", n))]
         newest_stamp = max(stamps_all) if stamps_all else ""
+        on_disk = [m.group(1) for n in os.listdir(ddir)
+                   if (m := re.search(r"(\d{8})", n))]
+        newest_on_disk = max(on_disk) if on_disk else ""
         for b64, name in files:
-            if not wanted(key, name, mode, dipcef_days, newest_stamp):
+            if not wanted(key, name, mode, dipcef_days, newest_stamp,
+                          newest_on_disk):
                 continue
             dest = os.path.join(ddir, name)
             if looks_valid(dest):
@@ -181,6 +199,8 @@ def archive(keys: list[str], mode: str, dipcef_days: int) -> dict:
                 consecutive += 1
                 if consecutive >= MAX_CONSECUTIVE_ERRORS:
                     print(f"{key}: aborting after {consecutive} consecutive errors")
+                    failures.append(f"{key}: aborted after {consecutive} "
+                                    "consecutive fetch errors")
                     break
         have = sorted(os.listdir(ddir))
         stamps = [re.search(r"(\d{8})", n).group(1)
@@ -198,18 +218,63 @@ def archive(keys: list[str], mode: str, dipcef_days: int) -> dict:
     os.makedirs(RAW, exist_ok=True)
     with open(manifest_path, "w") as f:
         json.dump(manifest, f, indent=1, sort_keys=True)
-    return manifest
+    return failures
+
+
+# Publication-lag budget per dataset, in days behind today (PHT). LWAPF is a
+# settlement-final series and ran ~10 days behind when measured 2026-07-05;
+# DIPCEF is a static sample by design and is exempt. A dataset older than its
+# budget means the cron has been failing silently: --check exits nonzero so
+# the workflow goes red instead.
+LAG_BUDGET_DAYS = {"LWAPF": 16, "DIPCEF": None}
+LAG_DEFAULT_DAYS = 4
+
+
+def check_staleness() -> int:
+    manifest_path = os.path.join(RAW, "manifest.json")
+    if not os.path.exists(manifest_path):
+        print("STALE: no manifest.json (archiver has never run?)")
+        return 1
+    with open(manifest_path) as f:
+        manifest = json.load(f)
+    today = datetime.now(PHT)
+    stale = []
+    for key in DATASETS:
+        budget = LAG_BUDGET_DAYS.get(key, LAG_DEFAULT_DAYS)
+        if budget is None:
+            continue
+        newest = (manifest.get(key) or {}).get("newest")
+        if not newest:
+            stale.append(f"{key}: no files recorded")
+            continue
+        age = (today - datetime.strptime(newest, "%Y%m%d")
+               .replace(tzinfo=PHT)).days
+        status = "STALE" if age > budget else "ok"
+        print(f"{key}: newest {newest}, {age}d old (budget {budget}d) {status}")
+        if age > budget:
+            stale.append(f"{key}: newest {newest} is {age}d old "
+                         f"(budget {budget}d)")
+    for s in stale:
+        print("STALE:", s)
+    return 1 if stale else 0
 
 
 def main() -> int:
     ap = argparse.ArgumentParser()
     g = ap.add_mutually_exclusive_group(required=True)
     g.add_argument("--backfill", action="store_true", help="full public window")
-    g.add_argument("--daily", action="store_true", help="last 2 PHT days only")
+    g.add_argument("--daily", action="store_true",
+                   help="everything newer than the archive's newest file")
+    g.add_argument("--check", action="store_true",
+                   help="staleness check against manifest.json (exit 1 if stale)")
     ap.add_argument("--only", help="comma-separated dataset keys")
-    ap.add_argument("--dipcef-days", type=int, default=3,
-                    help="fetch DIPCEF hourly zips for the last N days (0=skip)")
+    ap.add_argument("--dipcef-days", type=int, default=None,
+                    help="fetch DIPCEF hourly zips for the last N days "
+                         "(default: 3 on backfill, 0 on daily; the DIPCEF "
+                         "sample stays static so the repo stays light)")
     a = ap.parse_args()
+    if a.check:
+        return check_staleness()
     keys = list(DATASETS)
     if a.only:
         keys = [k.strip().upper() for k in a.only.split(",")]
@@ -218,7 +283,14 @@ def main() -> int:
             print(f"unknown dataset keys: {bad}")
             return 2
     mode = "daily" if a.daily else "backfill"
-    archive(keys, mode, a.dipcef_days)
+    dipcef_days = a.dipcef_days
+    if dipcef_days is None:
+        dipcef_days = 0 if mode == "daily" else 3
+    failures = archive(keys, mode, dipcef_days)
+    if failures:
+        print(f"{len(failures)} dataset failure(s); exiting nonzero so the "
+              "cron goes red instead of silently losing window days")
+        return 1
     return 0
 
 

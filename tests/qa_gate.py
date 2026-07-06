@@ -10,8 +10,12 @@ import re
 import sys
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
+# Every user-visible artifact: the map, the baked data the map reads, the README,
+# and the docs/ writeups (audit, roadmap, research, LinkedIn draft) whose copy is
+# also public and must clear the same banned-framing and voice bars.
 TARGETS = (glob.glob(os.path.join(ROOT, "web", "*.html"))
            + glob.glob(os.path.join(ROOT, "web", "data", "*.json"))
+           + glob.glob(os.path.join(ROOT, "docs", "*.md"))
            + [os.path.join(ROOT, "README.md")])
 
 fails = []

@@ -60,6 +60,11 @@ CHOKEPOINTS = [
         "evidence": "Named congested corridor limiting internal Visayas transfers, elevating Leyte nodal prices (IEMOP Dec 2025)",
         "src": "https://www.iemop.ph/news/december-2025-power-market-luzon-prices-ease-as-supply-improves-visayas-and-mindanao-experience-tighter-conditions/",
         "precision": "schematic",
+        # Join receipts from the congestions-manifesting files onto this line.
+        # Matched by name: the LEYTE_TO_CEBU interface row, plus the Tabango
+        # (Leyte) to Daanbantayan (Cebu) 230 kV lines that carry the corridor
+        # (station names 04TABANG / 05DAANBN in the same files).
+        "equipment_match": ["LEYTE_TO_CEBU", "5DAAN_4TAB"],
     },
     {
         "id": "cebu_import",
@@ -82,8 +87,8 @@ CHOKEPOINTS = [
                    [122.9500, 10.6600], [122.5500, 10.7000]],
         "capacity_mw": None,
         "operating_limit_mw": None,
-        "evidence": "Backbone reinforced 2024 to relieve Region 6 constraints; Visayas ran 7 straight weeks of yellow alerts in June 2026",
-        "src": "https://cebudailynews.inquirer.net/740334/visayas-grid-enters-7th-straight-week-of-yellow-alerts",
+        "evidence": "Backbone reinforced 2024 to relieve Region 6 constraints; the Visayas grid ran a 52-day daily yellow-alert streak that ended Jul 1, 2026",
+        "src": "https://www.sunstar.com.ph/cebu/visayas-grid-exits-daily-yellow-alerts",
         "precision": "schematic",
     },
 ]
@@ -204,8 +209,19 @@ MARKET_ANCHORS = {
     "meralco_june2026_generation_charge": 9.0704,
     "meralco_june2026_wesm_cost_php_kwh": 7.0281,
     "src_meralco_june": "https://www.bworldonline.com/top-stories/2026/06/12/756242/meralco-rates-climb-p0-15-kwh-in-june/",
-    # Visayas alert streak (grid fragility in-window)
-    "visayas_yellow_streak_weeks": 7,
+    # Visayas alert streak (grid fragility in-window). The daily yellow-alert
+    # streak ran May 11 to Jul 1, 2026 (52 days) and ended at 2:40 pm Jul 1 when
+    # PEDC Unit 3 returned 150 MW; TVI Units 1 and 2 (169 MW each) stayed out.
+    # On Jul 1 the grid ran 2,599 MW available against a 2,411 MW peak with
+    # 935.3 MW unavailable. Both sources fetched 2026-07-05.
+    "visayas_yellow_streak_days": 52,
+    "visayas_yellow_streak_from": "2026-05-11",
+    "visayas_yellow_streak_to": "2026-07-01",
+    "visayas_streak_end_return_mw": 150,
+    "visayas_unavailable_mw_jul1": 935.3,
+    "src_visayas_streak_end": "https://www.sunstar.com.ph/cebu/visayas-grid-exits-daily-yellow-alerts",
+    "src_visayas_jul1": "https://www.gmanetwork.com/news/money/economy/993308/ngcp-visayas-grid-on-yellow-alert-on-wednesday-july-1-2026/story/",
+    # Mid-streak forced-outage snapshot (late June 2026)
     "visayas_forced_outage_mw": 1001.5,
     "src_visayas": "https://cebudailynews.inquirer.net/740334/visayas-grid-enters-7th-straight-week-of-yellow-alerts",
     # IEMOP Dec 2025 (choke-point binding share)

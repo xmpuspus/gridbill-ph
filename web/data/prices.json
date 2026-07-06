@@ -412,6 +412,32 @@
   6.535
  ],
  "unit": "PhP/kWh (unweighted daily mean of 5-min LWAP, from PhP/MWh)",
+ "as_of": "2026-06-25",
+ "resumed": "2026-05-01",
+ "regimes": {
+  "administered": {
+   "days": 24,
+   "means": {
+    "luzon": 5.64,
+    "visayas": 5.64,
+    "mindanao": 5.64
+   },
+   "mean_spread": 0.01,
+   "max_spread": 0.015,
+   "days_spread_gt5": 0
+  },
+  "market": {
+   "days": 56,
+   "means": {
+    "luzon": 7.65,
+    "visayas": 12.96,
+    "mindanao": 11.52
+   },
+   "mean_spread": 5.88,
+   "max_spread": 15.722,
+   "days_spread_gt5": 28
+  }
+ },
  "max_spread": {
   "date": "2026-06-08",
   "php": 15.722
