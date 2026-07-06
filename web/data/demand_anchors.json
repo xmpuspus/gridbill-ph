@@ -1,0 +1,44 @@
+[
+ {
+  "label": "DICT forecast: PH data-center capacity by 2028",
+  "mw": 1500,
+  "kind": "forecast",
+  "owner": "DICT",
+  "date": "2025-10",
+  "src": "https://www.bworldonline.com/corporate/2025/10/23/707346/"
+ },
+ {
+  "label": "DOE range: added peak demand from incoming data centers",
+  "mw_low": 300,
+  "mw_high": 1500,
+  "kind": "forecast",
+  "owner": "DOE",
+  "date": "2026-01",
+  "src": "https://pcij.org/2026/01/11/data-centers-raise-concerns/"
+ },
+ {
+  "label": "Meralco committed capacity for 10 data centers",
+  "mw": 1000,
+  "kind": "commitment",
+  "owner": "Meralco",
+  "date": "2026-01",
+  "src": "https://pcij.org/2026/01/11/data-centers-raise-concerns/"
+ },
+ {
+  "label": "Data Center Philippines alliance pipeline",
+  "mw": 473,
+  "kind": "pipeline",
+  "owner": "DCPH",
+  "date": "2026-02",
+  "src": "https://thephilbiznews.com/2026/02/22/data-center-alliance-unveils-473mw-to-power-phs-digital-rise/"
+ },
+ {
+  "label": "Operational today (contested range)",
+  "mw_low": 200,
+  "mw_high": 630,
+  "kind": "contested",
+  "owner": "DICT vs Mordor Intelligence",
+  "date": "2025",
+  "src": "https://pcij.org/2026/01/11/data-centers-raise-concerns/"
+ }
+]

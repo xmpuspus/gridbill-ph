@@ -1,0 +1,15 @@
+{
+ "header": [
+  "",
+  "END_TIME",
+  "PARAMETER_TYPE",
+  "RESOURCE_NAME",
+  "RUN_TIME",
+  "START_TIME",
+  "STATUS"
+ ],
+ "name_col": "RESOURCE_NAME",
+ "days_covered": 90,
+ "sual_outage_days": [],
+ "sual_outage_day_count": 0
+}

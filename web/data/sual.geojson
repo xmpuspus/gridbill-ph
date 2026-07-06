@@ -1,0 +1,23 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     120.097,
+     16.117
+    ]
+   },
+   "properties": {
+    "name": "Sual coal plant",
+    "location": "Sual, Pangasinan",
+    "unit_mw": 647,
+    "units": 2,
+    "src": "https://en.wikipedia.org/wiki/Sual_Power_Station",
+    "precision": "city"
+   }
+  }
+ ]
+}

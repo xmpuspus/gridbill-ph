@@ -1,0 +1,262 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     121.1114,
+     14.3122
+    ]
+   },
+   "properties": {
+    "name": "ePLDT VITRO Sta. Rosa",
+    "city": "Santa Rosa, Laguna",
+    "mw": 50,
+    "status": "operational",
+    "src": "https://www.datacenterdynamics.com/en/news/pldt-subsidiary-vitro-tops-off-50mw-data-center-in-sta-rosa-philippines/",
+    "precision": "city"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     121.061,
+     14.734
+    ]
+   },
+   "properties": {
+    "name": "STT GDC Fairview campus",
+    "city": "Quezon City",
+    "mw": 124,
+    "status": "under_construction",
+    "note": "124 MW design; about 32 MW built as of April 2026",
+    "src": "https://www.bworldonline.com/corporate/2026/04/23/744800/",
+    "precision": "city"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     121.024,
+     14.554
+    ]
+   },
+   "properties": {
+    "name": "STT GDC Makati",
+    "city": "Makati",
+    "mw": 3,
+    "status": "operational",
+    "src": "https://www.datacenterdynamics.com/en/news/stt-gdc-philippines-to-expand-three-data-centers/",
+    "precision": "city"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     121.043,
+     14.676
+    ]
+   },
+   "properties": {
+    "name": "STT GDC Quezon City",
+    "city": "Quezon City",
+    "mw": 5.5,
+    "status": "operational",
+    "src": "https://www.datacenterdynamics.com/en/news/stt-gdc-philippines-to-expand-three-data-centers/",
+    "precision": "city"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     120.982,
+     14.348
+    ]
+   },
+   "properties": {
+    "name": "STT GDC Cavite 1 and 2",
+    "city": "Cavite",
+    "mw": 10.8,
+    "status": "operational",
+    "note": "4.8 MW existing plus 6 MW expansion",
+    "src": "https://www.datacenterdynamics.com/en/news/stt-gdc-philippines-to-expand-three-data-centers/",
+    "precision": "city"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     125.613,
+     7.07
+    ]
+   },
+   "properties": {
+    "name": "STT GDC Davao",
+    "city": "Davao City",
+    "mw": null,
+    "status": "planned",
+    "src": "https://www.sttelemediagdc.com/ph-en/locations",
+    "precision": "city"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     121.0,
+     14.55
+    ]
+   },
+   "properties": {
+    "name": "Digital Edge NARRA1",
+    "city": "Metro Manila",
+    "mw": 10,
+    "status": "operational",
+    "src": "https://www.datacentermap.com/philippines/manila/digital-edge-manila-narra1/",
+    "precision": "city"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     121.158,
+     14.045
+    ]
+   },
+   "properties": {
+    "name": "YCO Malvar One",
+    "city": "Malvar, Batangas",
+    "mw": 12,
+    "status": "under_construction",
+    "src": "https://www.datacenterdynamics.com/en/news/cloud-centers-developing-12mw-data-center-in-batangas-the-philippines/",
+    "precision": "city"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     120.95,
+     14.3
+    ]
+   },
+   "properties": {
+    "name": "Evolution DC + Megawide campus",
+    "city": "Cavite",
+    "mw": 69,
+    "status": "planned",
+    "note": "Phase 1 is 23 MW",
+    "src": "https://www.datacenterdynamics.com/en/news/megawide-partners-with-evolution-data-centres-for-69mw-campus-outside-manila-philippines/",
+    "precision": "city"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     120.985,
+     14.583
+    ]
+   },
+   "properties": {
+    "name": "EdgeConneX + Aboitiz Manila",
+    "city": "Manila",
+    "mw": null,
+    "status": "announced",
+    "src": "https://www.edgeconnex.com/locations/asia-pacific/manila/",
+    "precision": "city"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     120.983,
+     14.657
+    ]
+   },
+   "properties": {
+    "name": "Converge Caloocan",
+    "city": "Caloocan",
+    "mw": 3,
+    "status": "operational",
+    "note": "Reported 300 racks; MW figure via directory listing",
+    "src": "https://baxtel.com/data-center/philippines",
+    "precision": "city"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     121.057,
+     14.316
+    ]
+   },
+   "properties": {
+    "name": "Equinix MN2",
+    "city": "Carmona, Cavite",
+    "mw": 4,
+    "status": "operational",
+    "src": "https://baxtel.com/data-center/equinix-carmona-1",
+    "precision": "city"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     121.03,
+     14.556
+    ]
+   },
+   "properties": {
+    "name": "Equinix MN1/MN3",
+    "city": "Makati",
+    "mw": null,
+    "status": "operational",
+    "src": "https://newsroom.equinix.com/2025-10-22-Equinix-Connects-Philippine-Businesses",
+    "precision": "city"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     120.556,
+     15.319
+    ]
+   },
+   "properties": {
+    "name": "Narra Technology Park",
+    "city": "New Clark City, Capas, Tarlac",
+    "mw": 300,
+    "status": "planned",
+    "note": "3 x 100 MW, Phase 1 targeted Q4 2026, USD 2.7B",
+    "src": "https://www.datacenterdynamics.com/en/news/300mw-data-center-campus-proposed-in-the-philippines/",
+    "precision": "city"
+   }
+  }
+ ]
+}

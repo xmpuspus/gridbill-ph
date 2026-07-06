@@ -1,0 +1,391 @@
+{
+ "window": {
+  "from": "2026-04-07",
+  "to": "2026-07-05"
+ },
+ "days_covered": 90,
+ "days_with_base_case_binding": 90,
+ "distinct_equipment": 84,
+ "total_binding_rows": 40351,
+ "league": [
+  {
+   "equipment": "5DAAN_4TAB2",
+   "station": "05DAANBN",
+   "voltage": "230",
+   "intervals": 8568,
+   "days": 87,
+   "base_case_intervals": 8568,
+   "max_overload_mw": 26.73,
+   "markets": [
+    "DAPCV",
+    "RTDCV"
+   ]
+  },
+  {
+   "equipment": "1EHVNGS_TR2",
+   "station": "01EHVNAG",
+   "voltage": "230",
+   "intervals": 6776,
+   "days": 86,
+   "base_case_intervals": 0,
+   "max_overload_mw": 0.0,
+   "markets": [
+    "DAPCV",
+    "RTDCV"
+   ]
+  },
+  {
+   "equipment": "1EHVNGS_TR1",
+   "station": "01EHVNAG",
+   "voltage": "230",
+   "intervals": 5659,
+   "days": 86,
+   "base_case_intervals": 0,
+   "max_overload_mw": 0.0,
+   "markets": [
+    "DAPCV",
+    "RTDCV"
+   ]
+  },
+  {
+   "equipment": "5DAAN_4TAB1",
+   "station": "04TABANG",
+   "voltage": "230",
+   "intervals": 3502,
+   "days": 62,
+   "base_case_intervals": 3502,
+   "max_overload_mw": 11.89,
+   "markets": [
+    "DAPCV",
+    "RTDCV"
+   ]
+  },
+  {
+   "equipment": "1BAUA_1BPP1",
+   "station": "01BPPC",
+   "voltage": "230",
+   "intervals": 2647,
+   "days": 50,
+   "base_case_intervals": 0,
+   "max_overload_mw": 0.0,
+   "markets": [
+    "DAPCV",
+    "RTDCV"
+   ]
+  },
+  {
+   "equipment": "1SJO115_TR1",
+   "station": "01EHVSJO",
+   "voltage": "115",
+   "intervals": 2601,
+   "days": 52,
+   "base_case_intervals": 2601,
+   "max_overload_mw": 0.0,
+   "markets": [
+    "DAPCV",
+    "RTDCV"
+   ]
+  },
+  {
+   "equipment": "LEYTE_TO_CEBU",
+   "station": "LEYTE_TO",
+   "voltage": "",
+   "intervals": 2132,
+   "days": 68,
+   "base_case_intervals": 2132,
+   "max_overload_mw": 0.0,
+   "markets": [
+    "DAPCV"
+   ]
+  },
+  {
+   "equipment": "5DAAN_4TAB1",
+   "station": "05DAANBN",
+   "voltage": "230",
+   "intervals": 1801,
+   "days": 36,
+   "base_case_intervals": 1801,
+   "max_overload_mw": 14.06,
+   "markets": [
+    "DAPCV",
+    "RTDCV"
+   ]
+  },
+  {
+   "equipment": "1OLONG_TR2",
+   "station": "01OLONGA",
+   "voltage": "230",
+   "intervals": 923,
+   "days": 26,
+   "base_case_intervals": 923,
+   "max_overload_mw": 0.0,
+   "markets": [
+    "DAPCV"
+   ]
+  },
+  {
+   "equipment": "4MAAS_7UBA1",
+   "station": "04MAASIN",
+   "voltage": "138",
+   "intervals": 475,
+   "days": 24,
+   "base_case_intervals": 475,
+   "max_overload_mw": 0.0,
+   "markets": [
+    "DAPCV"
+   ]
+  },
+  {
+   "equipment": "1BAUA_1LAT2",
+   "station": "01BAUANG",
+   "voltage": "230",
+   "intervals": 427,
+   "days": 16,
+   "base_case_intervals": 0,
+   "max_overload_mw": 3.86,
+   "markets": [
+    "DAPCV",
+    "RTDCV"
+   ]
+  },
+  {
+   "equipment": "1BAUA_1LAT1",
+   "station": "01LATRIN",
+   "voltage": "230",
+   "intervals": 379,
+   "days": 7,
+   "base_case_intervals": 0,
+   "max_overload_mw": 69.11,
+   "markets": [
+    "DAPCV",
+    "RTDCV"
+   ]
+  },
+  {
+   "equipment": "1BAUA_1LAT1",
+   "station": "01BAUANG",
+   "voltage": "230",
+   "intervals": 356,
+   "days": 16,
+   "base_case_intervals": 0,
+   "max_overload_mw": 3.86,
+   "markets": [
+    "DAPCV",
+    "RTDCV"
+   ]
+  },
+  {
+   "equipment": "8NABAS_TR2",
+   "station": "08NABAS",
+   "voltage": "69",
+   "intervals": 352,
+   "days": 6,
+   "base_case_intervals": 352,
+   "max_overload_mw": 0.0,
+   "markets": [
+    "DAPCV"
+   ]
+  },
+  {
+   "equipment": "1MEXI_1HER2",
+   "station": "01MEXICO",
+   "voltage": "230",
+   "intervals": 323,
+   "days": 7,
+   "base_case_intervals": 1,
+   "max_overload_mw": 197.74,
+   "markets": [
+    "DAPCV",
+    "RTDCV"
+   ]
+  },
+  {
+   "equipment": "1BAUA_1LAT2",
+   "station": "01LATRIN",
+   "voltage": "230",
+   "intervals": 307,
+   "days": 8,
+   "base_case_intervals": 0,
+   "max_overload_mw": 69.11,
+   "markets": [
+    "DAPCV",
+    "RTDCV"
+   ]
+  },
+  {
+   "equipment": "1SRAF_1SJO1",
+   "station": "01SNRAFA",
+   "voltage": "230",
+   "intervals": 304,
+   "days": 9,
+   "base_case_intervals": 0,
+   "max_overload_mw": 21.1,
+   "markets": [
+    "DAPCV",
+    "RTDCV"
+   ]
+  },
+  {
+   "equipment": "8NABAS_TR1",
+   "station": "08NABAS",
+   "voltage": "69",
+   "intervals": 265,
+   "days": 6,
+   "base_case_intervals": 265,
+   "max_overload_mw": 0.0,
+   "markets": [
+    "DAPCV"
+   ]
+  },
+  {
+   "equipment": "1MEXI_2QUE1",
+   "station": "01MEXICO",
+   "voltage": "230",
+   "intervals": 212,
+   "days": 7,
+   "base_case_intervals": 19,
+   "max_overload_mw": 3.13,
+   "markets": [
+    "DAPCV"
+   ]
+  },
+  {
+   "equipment": "5DAAN_4TAB2",
+   "station": "04TABANG",
+   "voltage": "230",
+   "intervals": 210,
+   "days": 7,
+   "base_case_intervals": 210,
+   "max_overload_mw": 4.9,
+   "markets": [
+    "DAPCV",
+    "RTDCV"
+   ]
+  },
+  {
+   "equipment": "2QUEZ_2ARA1",
+   "station": "02QUEZON",
+   "voltage": "230",
+   "intervals": 162,
+   "days": 3,
+   "base_case_intervals": 0,
+   "max_overload_mw": 0.0,
+   "markets": [
+    "DAPCV",
+    "RTDCV"
+   ]
+  },
+  {
+   "equipment": "3AMAD_3CLA1",
+   "station": "03CLACA",
+   "voltage": "230",
+   "intervals": 156,
+   "days": 7,
+   "base_case_intervals": 156,
+   "max_overload_mw": 0.0,
+   "markets": [
+    "RTDCV"
+   ]
+  },
+  {
+   "equipment": "6CALASOL_TR2",
+   "station": "06CALATR",
+   "voltage": "35",
+   "intervals": 140,
+   "days": 2,
+   "base_case_intervals": 140,
+   "max_overload_mw": 0.0,
+   "markets": [
+    "DAPCV"
+   ]
+  },
+  {
+   "equipment": "10MRAWI_TR1",
+   "station": "10AGUS1",
+   "voltage": "138",
+   "intervals": 133,
+   "days": 4,
+   "base_case_intervals": 133,
+   "max_overload_mw": 0.0,
+   "markets": [
+    "DAPCV",
+    "RTDCV"
+   ]
+  },
+  {
+   "equipment": "MANOLO_TO_MARAMAG",
+   "station": "MANOLO_T",
+   "voltage": "",
+   "intervals": 109,
+   "days": 3,
+   "base_case_intervals": 109,
+   "max_overload_mw": 0.0,
+   "markets": [
+    "DAPCV"
+   ]
+  },
+  {
+   "equipment": "5MNDUE_TR2",
+   "station": "05MANDAU",
+   "voltage": "138",
+   "intervals": 107,
+   "days": 7,
+   "base_case_intervals": 107,
+   "max_overload_mw": 0.0,
+   "markets": [
+    "DAPCV"
+   ]
+  },
+  {
+   "equipment": "1BING_1NGS2",
+   "station": "01EHVNAG",
+   "voltage": "230",
+   "intervals": 95,
+   "days": 5,
+   "base_case_intervals": 15,
+   "max_overload_mw": 0.0,
+   "markets": [
+    "DAPCV",
+    "RTDCV"
+   ]
+  },
+  {
+   "equipment": "09AURO_09NAG1",
+   "station": "09AUROR",
+   "voltage": "138",
+   "intervals": 86,
+   "days": 2,
+   "base_case_intervals": 86,
+   "max_overload_mw": 0.0,
+   "markets": [
+    "DAPCV",
+    "RTDCV"
+   ]
+  },
+  {
+   "equipment": "8PANITA_TR1",
+   "station": "08PANITA",
+   "voltage": "69",
+   "intervals": 81,
+   "days": 2,
+   "base_case_intervals": 81,
+   "max_overload_mw": 0.0,
+   "markets": [
+    "DAPCV"
+   ]
+  },
+  {
+   "equipment": "3BINA_3DAS2",
+   "station": "03DASMAE",
+   "voltage": "230",
+   "intervals": 77,
+   "days": 4,
+   "base_case_intervals": 0,
+   "max_overload_mw": 48.26,
+   "markets": [
+    "DAPCV",
+    "RTDCV"
+   ]
+  }
+ ]
+}

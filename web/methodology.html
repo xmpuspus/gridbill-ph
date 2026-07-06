@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>gridbill-ph methodology - every number, every source</title>
+<meta name="description" content="Sources, access mechanics, units, and caveats for every number on gridbill-ph." />
+<style>
+  :root{ --ink:#10212b; --muted:#5b6b75; --line:#e2e8ec; --bg:#f7f9fa; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; font-family:-apple-system,Helvetica,Arial,sans-serif; color:var(--ink);
+    background:var(--bg); line-height:1.55; }
+  main{ max-width:760px; margin:0 auto; padding:34px 18px 80px; }
+  h1{ font-size:26px; letter-spacing:-.4px; margin:0 0 4px; }
+  .lede{ color:var(--muted); font-size:15px; margin:0 0 26px; }
+  h2{ font-size:18px; margin:30px 0 8px; }
+  h3{ font-size:14.5px; margin:18px 0 6px; }
+  p, li{ font-size:14px; }
+  code{ background:#eef1f3; border-radius:4px; padding:1px 5px; font-size:12.5px; }
+  table{ width:100%; border-collapse:collapse; font-size:13px; margin:10px 0; }
+  th{ text-align:left; border-bottom:1px solid var(--line); padding:5px 6px; color:var(--muted); }
+  td{ border-bottom:1px dashed var(--line); padding:5px 6px; vertical-align:top; }
+  a{ color:#0d5c8c; }
+  .box{ background:#fff; border:1px solid var(--line); border-radius:10px; padding:14px 16px; margin:14px 0; }
+  .muted{ color:var(--muted); font-size:12.5px; }
+  .back{ display:inline-block; margin-bottom:18px; font-size:13px; }
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="index.html">&#8249; back to the map</a>
+<h1>Methodology</h1>
+<p class="lede">Every number on the map is either computed from archived public
+IEMOP market files or a labeled constant with a primary source. This page lists
+the sources, the access mechanics, the units, and the caveats. Nothing here is
+an estimate of ours dressed as a fact.</p>
+
+<div class="box">
+<b>The three questions and how each is answered</b>
+<ol>
+<li><b>Supply headroom.</b> Labeled demand-side anchors (DICT forecast, DOE range,
+Meralco commitment, DCPH pipeline) are drawn against the market operator's
+published May 2026 system supply margin, plus observed curtailment and reserve
+shortfalls computed from the archived real-time regional summaries.</li>
+<li><b>Infrastructure readiness.</b> Named binding equipment counted from IEMOP's
+public "congestions manifesting" files; the two HVDC inter-island links and three
+named AC corridors from primary reports; Sual unit-trip arithmetic against the
+published margin; Sual outage days read from archived outage schedules.</li>
+<li><b>Prices.</b> Daily load-weighted average prices per grid from archived LWAP
+files; regional spreads; the nodal congestion price component from sampled
+settlement files; the WESM-to-Meralco pass-through from the June 2026 advisory.</li>
+</ol>
+</div>
+
+<h2>Datasets archived from IEMOP</h2>
+<p>IEMOP (the WESM market operator) publishes these on public pages under
+<code>iemop.ph/market-data/</code> with no login. The public window is rolling
+(about 90 days per dataset), so this repository archives the files daily; the git
+history becomes the durable public archive. Access mechanic: each page lists files
+via <code>wp-admin/admin-ajax.php</code> (action
+<code>display_filtered_market_data_files</code>) and serves them via a
+<code>?md_file=&lt;base64 path&gt;</code> parameter.</p>
+<table>
+<tr><th>Dataset</th><th>Page</th><th>What we compute</th></tr>
+<tr><td>Congestions Manifesting in RTD / DAP (daily CSV)</td>
+<td><a href="https://www.iemop.ph/market-data/congestions-manifesting-in-rtd/">RTD</a>,
+<a href="https://www.iemop.ph/market-data/congestions-manifesting-in-dap/">DAP</a></td>
+<td>The constraint league: named equipment and station, days seen, 5-minute rows,
+base-case vs contingency, max overload MW.</td></tr>
+<tr><td>RTD Regional Summaries (daily CSV; CLUZ/CVIS/CMIN; En/Dr/Fr/Ru/Rd)</td>
+<td><a href="https://www.iemop.ph/market-data/rtd-regional-summaries/">page</a></td>
+<td>Per grid per day: peak scheduled demand (LOAD_BID), curtailed energy
+(LOAD_CURTAILED, MW per 5-min interval summed to MWh), minimum reserve slack
+(GENERATION minus MKT_REQT per reserve commodity), shortfall intervals.</td></tr>
+<tr><td>Load Weighted Average Prices, final (daily CSV, PhP/MWh)</td>
+<td><a href="https://www.iemop.ph/market-data/load-weighted-average-prices-final/">page</a></td>
+<td>Unweighted daily mean of 5-minute LWAP per grid, divided by 1,000 to PhP/kWh;
+daily inter-grid spread and the widest spread in the window.</td></tr>
+<tr><td>HVDC Limits Imposed in RTD</td>
+<td><a href="https://www.iemop.ph/market-data/hvdc-limits-imposed-in-rtd/">page</a></td>
+<td>Archived; per-interval limit series is a v1.1 layer.</td></tr>
+<tr><td>Outage Schedules Used in RTD</td>
+<td><a href="https://www.iemop.ph/market-data/outage-schedules-used-in-rtd/">page</a></td>
+<td>Days on which a Sual unit appears in the outage schedule.</td></tr>
+<tr><td>DIPC Energy Results, final (hourly zips; nodal LMP with
+LMP_SMP + LMP_LOSS + LMP_CONGESTION)</td>
+<td><a href="https://www.iemop.ph/market-data/dipc-energy-results-final/">page</a></td>
+<td>Archived (sample days; the files lag publication by about a week). NOT
+displayed yet: in the sampled hours the LMP_CONGESTION column read zero across
+all nodes even while nodal LMPs spread widely, so the decomposition's semantics
+need verification against WESM pricing documentation before any number ships
+(v1.1). Honest gap, stated here instead of a guessed chart.</td></tr>
+</table>
+<p class="muted">Courtesy: fetches are sequential with a 250 ms sleep and abort
+after 5 consecutive errors. IEMOP data is republished here as-is for public
+research with attribution; if IEMOP objects to any part of this mirror we will
+take it down.</p>
+
+<h2>Named choke points (primary sources)</h2>
+<table>
+<tr><th>Corridor</th><th>Facts used</th><th>Source</th></tr>
+<tr><td>Leyte-Luzon HVDC</td><td>Converter stations Ormoc (Leyte) and Naga
+(Camarines Sur); 440 MW, 350 kV, 451 km; operating Luzon-to-Visayas limit 250 MW;
+at max or offline 69% of the December 2025 billing period.</td>
+<td><a href="https://en.wikipedia.org/wiki/HVDC_Leyte%E2%80%93Luzon">Wikipedia (stations, nameplate)</a>;
+<a href="https://www.iemop.ph/news/december-2025-power-market-luzon-prices-ease-as-supply-improves-visayas-and-mindanao-experience-tighter-conditions/">IEMOP Dec 2025 report</a></td></tr>
+<tr><td>Mindanao-Visayas HVDC (MVIP)</td><td>Cable terminals Santander (Cebu) and
+Dapitan (Zamboanga del Norte); 450 MW expandable to 900 MW; 184 ckm submarine;
+first energization 30 April 2023; frequently at maximum or security-limited in
+May 2026.</td>
+<td><a href="https://www.tdworld.com/intelligent-undergrounding/article/21265779/">T&amp;D World</a>;
+<a href="https://powerphilippines.com/wesm-prices-rise-38-5-in-may-as-demand-growth-outpaces-supply/">IEMOP May 2026 via Power Philippines</a></td></tr>
+<tr><td>230 kV Leyte-Cebu corridor</td><td>Named congested, limiting internal
+Visayas transfers and elevating Leyte nodal prices.</td>
+<td><a href="https://www.iemop.ph/news/december-2025-power-market-luzon-prices-ease-as-supply-improves-visayas-and-mindanao-experience-tighter-conditions/">IEMOP Dec 2025 report</a></td></tr>
+<tr><td>Cebu import corridor (Cebu-Lapu-Lapu 230 kV)</td><td>Congestion relief
+targeted by NGCP projects due 2026.</td>
+<td><a href="https://pia.gov.ph/news/major-ngcp-projects-set-to-ease-power-congestion-in-cebu-by-2026/">PIA</a>;
+<a href="https://www.ngcp.ph/Attachment-Uploads/TDP%202025-2050%20REPORT-2025-03-11-10-38-56.pdf">NGCP TDP 2025-2050 (PDF)</a></td></tr>
+<tr><td>Cebu-Negros-Panay 230 kV backbone</td><td>Completed March 2024 to relieve
+Region 6 constraints; the Visayas grid ran 7 straight weeks of yellow alerts in
+June 2026 with about 1,001.5 MW on forced outage.</td>
+<td><a href="https://cebudailynews.inquirer.net/740334/visayas-grid-enters-7th-straight-week-of-yellow-alerts">Cebu Daily News</a></td></tr>
+</table>
+<p class="muted">Corridor lines on the map are SCHEMATIC: straight links between
+the named endpoints above. They are not route maps and must not be read as
+tower-level geography.</p>
+
+<h2>Data-center sites</h2>
+<p>Only facilities with a citable public source are pinned; each pin carries its
+source URL and a <code>mw</code> value only where a public figure exists (hollow
+pins have none). Pins are placed at the named city or municipality, never at a
+street address. This is NOT a complete inventory: Cushman &amp; Wakefield counts
+24 operational facilities (73 MW) with 22 MW under development and 89 MW in
+planning (<a href="https://www.cushmanwakefield.com/en/singapore/insights/apac-data-centre-update">APAC
+DC Update</a>); DataCenterMap lists 44 Philippine facilities.</p>
+
+<h2>Demand-side anchors (all labeled)</h2>
+<ul>
+<li>DICT: Philippine data-center capacity could reach 1.5 GW by 2028
+(<a href="https://www.bworldonline.com/corporate/2025/10/23/707346/">BusinessWorld, Oct 2025</a>). A forecast, not a measurement.</li>
+<li>DOE: 300 to 1,500 MW of additional peak demand once incoming data centers are
+factored in; DOE has no official published projection of data-center capacity
+requirements (<a href="https://pcij.org/2026/01/11/data-centers-raise-concerns/">PCIJ, Jan 2026</a>).</li>
+<li>Meralco: set to deliver 1,000 MW for 10 data centers
+(<a href="https://pcij.org/2026/01/11/data-centers-raise-concerns/">PCIJ, Jan 2026</a>).</li>
+<li>Data Center Philippines alliance: 473 MW pipeline
+(<a href="https://thephilbiznews.com/2026/02/22/data-center-alliance-unveils-473mw-to-power-phs-digital-rise/">thePhilBizNews, Feb 2026</a>).</li>
+<li>Operational capacity today is contested: about 200 MW (DICT) vs about 630 MW
+(Mordor Intelligence), per PCIJ. Shown only as a labeled range.</li>
+</ul>
+
+<h2>Market and bill anchors</h2>
+<ul>
+<li>WESM was suspended 26 March to 1 May 2026 under the fuel-shock emergency
+(EO 110); market-driven pricing resumed 1 May
+(<a href="https://tribune.net.ph/2026/05/01/wesm-restart-restores-market-driven-power-prices">Tribune</a>).</li>
+<li>May 2026, first full post-resumption month: system average P7.79/kWh, up
+38.5% from April; Luzon P7.02, Visayas P10.20, Mindanao P9.28; supply 21,374 MW,
+demand 15,755 MW, margin 3,629 MW
+(<a href="https://powerphilippines.com/wesm-prices-rise-38-5-in-may-as-demand-growth-outpaces-supply/">IEMOP May 2026 report via Power Philippines</a>).</li>
+<li>Meralco June 2026: overall rate P14.4833/kWh (+P0.1488); generation charge
+P9.0704/kWh with WESM at P7.0281/kWh
+(<a href="https://www.bworldonline.com/top-stories/2026/06/12/756242/meralco-rates-climb-p0-15-kwh-in-june/">BusinessWorld</a>;
+<a href="https://company.meralco.com.ph/news-and-advisories/higher-residential-rates-june-2026">Meralco advisory</a>).</li>
+<li>Sual coal plant: two 647 MW units at Sual, Pangasinan, the largest single
+generating units on the Luzon grid
+(<a href="https://en.wikipedia.org/wiki/Sual_Power_Station">Wikipedia</a>).</li>
+</ul>
+
+<h2>Units and conversions</h2>
+<ul>
+<li>LWAP and LMP components arrive in PhP/MWh and are divided by 1,000 for
+display in PhP/kWh.</li>
+<li>LOAD_CURTAILED arrives as MW per 5-minute interval; summed to MWh by
+multiplying by 5/60.</li>
+<li>Daily LWAP is the unweighted mean of that day's 5-minute values (a display
+series, not a settlement quantity).</li>
+</ul>
+
+<h2>What this map does NOT claim</h2>
+<ul>
+<li>It does not claim data centers raised Philippine electricity prices. Current
+data-center load is small against a roughly 15 GW Luzon peak; the price history
+in the window is driven by fuel, outages, weather, and the market restart.</li>
+<li>It does not predict brownouts. It shows observed curtailment, observed
+reserve shortfalls, and arithmetic on published margins.</li>
+<li>It does not accuse any company. Data centers are also investment; the map
+shows where the grid binds and where the announced load lands.</li>
+<li>Corridor lines are schematic; data-center pins are city-precision; forecasts
+belong to their named owners.</li>
+</ul>
+
+<div class="box muted">
+All data sourced from public records (IEMOP market files, NGCP publications,
+Meralco advisories, PCIJ reporting, company announcements). This tool computes
+statistical indicators only. Patterns may have legitimate explanations. Specific
+allegations, if any, require independent investigation and corroboration.
+</div>
+
+<p class="muted">Code MIT; baked data products CC-BY-4.0. Attribution when
+redistributing: gridbill-ph (2026), IEMOP public market data archive,
+https://github.com/xmpuspus/gridbill-ph.</p>
+</main>
+</body>
+</html>

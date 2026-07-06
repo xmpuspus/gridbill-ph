@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>gridbill-ph - can the Philippine grid host the data-center wave?</title>
+<meta name="description" content="A Philippine grid map built on the market operator's own public files: where transmission already binds, where the announced data-center megawatts land, and what the spot market and the Meralco bill are doing. Public IEMOP, NGCP, and Meralco data." />
+<meta property="og:title" content="gridbill-ph" />
+<meta property="og:description" content="Can the Philippine grid host the data-center wave? The choke points already bind daily; the market prices them. Built on IEMOP's own public files." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet"
+  integrity="sha384-MinO0mNliZ3vwppuPOUnGa+iq619pfMhLVUXfC4LHwSCvF9H+6P/KO4Q7qBOYV5V" crossorigin="anonymous" />
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"
+  integrity="sha384-SYKAG6cglRMN0RVvhNeBY0r3FYKNOJtznwA0v7B5Vp9tr31xAHsZC0DqkQ/pZDmj" crossorigin="anonymous"></script>
+<style>
+  :root{ --ink:#10212b; --muted:#5b6b75; --line:#e2e8ec; --bg:#f7f9fa;
+    --op:#1a7f48; --uc:#b8860b; --plan:#8a97a0; --hvdc:#9c3d12; --ac:#3a6b8a; --sual:#b3261e; }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; height:100%; font-family:-apple-system,Helvetica,Arial,sans-serif; color:var(--ink); background:var(--bg); }
+  #map{ position:absolute; inset:0; }
+  .panel{ position:absolute; z-index:2; background:#fff; border:1px solid var(--line); border-radius:10px; box-shadow:0 1px 8px rgba(16,33,43,.08); }
+  button{ font-family:inherit; }
+  #head{ top:12px; left:12px; max-width:392px; padding:14px 16px; }
+  #head h1{ margin:0 0 2px; font-size:18px; letter-spacing:-.2px; }
+  #head p{ margin:5px 0 0; font-size:13px; line-height:1.45; color:var(--muted); }
+  #head .scope{ margin-top:8px; font-size:11.5px; color:var(--muted); background:#f4f7f8; border:1px solid var(--line); border-radius:7px; padding:7px 9px; line-height:1.4; }
+  #modebar{ top:12px; left:50%; transform:translateX(-50%); padding:6px 7px; display:flex; gap:5px; flex-wrap:wrap; justify-content:center; max-width:calc(100% - 24px); }
+  .mode{ border:1px solid var(--line); background:#fff; border-radius:6px; padding:6px 11px; cursor:pointer; font-size:12.5px; color:var(--muted); white-space:nowrap; }
+  .mode.on{ background:var(--ink); color:#fff; border-color:var(--ink); }
+  #legend{ bottom:16px; left:12px; padding:11px 13px; font-size:12px; max-width:264px; }
+  #legend b{ font-size:12px; }
+  .keys{ margin-top:6px; display:flex; flex-direction:column; gap:3px; }
+  .keys .k{ display:flex; align-items:center; gap:7px; font-size:11.5px; color:var(--muted); }
+  .keys .sw{ width:12px; height:12px; border-radius:3px; border:1px solid rgba(0,0,0,.15); }
+  .keys .ln{ width:16px; height:0; border-top:3px solid #000; }
+  #lg-note{ margin-top:7px; font-size:11px; color:var(--muted); line-height:1.4; }
+  /* right panel (mode content) */
+  #side{ right:12px; top:12px; width:336px; max-width:calc(100% - 24px); max-height:calc(100% - 120px); overflow-y:auto; padding:12px 14px; }
+  #side h2{ margin:0 0 2px; font-size:14px; }
+  #side .sub{ font-size:11.5px; color:var(--muted); margin:0 0 8px; line-height:1.4; }
+  .stat{ font-size:24px; font-weight:700; letter-spacing:-.4px; margin:4px 0 0; }
+  .stat small{ font-size:12px; font-weight:500; color:var(--muted); }
+  .kv{ display:flex; justify-content:space-between; gap:10px; padding:4px 0; border-bottom:1px dashed var(--line); font-size:12.5px; }
+  .kv span:last-child{ text-align:right; color:var(--muted); font-variant-numeric:tabular-nums; }
+  table{ width:100%; border-collapse:collapse; font-size:11.5px; margin-top:6px; }
+  th{ text-align:left; color:var(--muted); font-weight:600; padding:3px 4px; border-bottom:1px solid var(--line); }
+  td{ padding:3px 4px; border-bottom:1px dashed var(--line); font-variant-numeric:tabular-nums; }
+  td.num{ text-align:right; }
+  .note{ margin-top:9px; font-size:11px; color:var(--muted); line-height:1.45; }
+  .barrow{ margin:7px 0 2px; }
+  .barrow .lab{ font-size:11.5px; display:flex; justify-content:space-between; color:var(--muted); }
+  .barrow .lab b{ color:var(--ink); font-variant-numeric:tabular-nums; }
+  .barrow .tr{ height:9px; background:#eef1f3; border-radius:3px; margin-top:3px; position:relative; overflow:hidden; }
+  .barrow .fl{ position:absolute; inset:0 auto 0 0; border-radius:3px; }
+  #spark svg{ display:block; width:100%; height:auto; }
+  .sual-btn{ width:100%; margin-top:9px; border:1px solid var(--line); background:#fff; color:var(--ink);
+    border-radius:7px; padding:7px 10px; cursor:pointer; font-size:12.5px; font-weight:600; }
+  .sual-btn.on{ background:var(--sual); border-color:var(--sual); color:#fff; }
+  /* story rail */
+  #rail{ left:50%; transform:translateX(-50%); bottom:16px; width:min(600px, calc(100% - 24px)); padding:0; overflow:hidden; }
+  .r-top{ display:flex; align-items:center; gap:8px; padding:9px 13px 7px; border-bottom:1px solid var(--line); }
+  .r-kick{ font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.6px; color:var(--muted); }
+  #r-dots{ display:flex; gap:4px; margin-left:auto; }
+  #r-dots i{ width:6px; height:6px; border-radius:50%; background:var(--line); display:block; }
+  #r-dots i.on{ background:var(--ink); }
+  .r-body{ display:flex; align-items:stretch; gap:8px; padding:10px 10px 6px; }
+  .r-nav{ flex:0 0 auto; width:38px; border:1px solid var(--line); background:#fff; border-radius:8px; cursor:pointer; color:var(--ink); font-size:20px; line-height:1; }
+  .r-nav:hover{ background:#f5f8f9; } .r-nav:disabled{ opacity:.35; cursor:default; }
+  .r-card{ flex:1; text-align:left; border:1px solid var(--line); background:#fff; border-radius:8px; padding:9px 11px; display:block; }
+  .r-tag{ font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:var(--muted); }
+  .r-title{ display:block; font-size:13.5px; font-weight:600; line-height:1.32; margin:3px 0 4px; }
+  .r-stat{ display:block; font-size:12.5px; font-weight:700; color:var(--ink); line-height:1.35; }
+  .r-blurb{ display:block; font-size:12px; color:var(--muted); line-height:1.45; margin-top:6px; }
+  .r-src{ display:block; font-size:10.5px; color:var(--muted); font-style:italic; margin-top:6px; }
+  .r-foot{ padding:7px 13px 9px; border-top:1px solid var(--line); font-size:10.5px; color:var(--muted); line-height:1.4; }
+  .r-foot a{ color:var(--ink); }
+  @media(max-width:640px){
+    #head{ max-width:none; right:12px; }
+    #side{ display:none; }
+    #legend{ display:none; }
+    #modebar{ top:auto; bottom:96px; }
+    #rail{ left:0; right:0; bottom:0; transform:none; width:100%; border-radius:14px 14px 0 0; }
+  }
+  .hovpop .maplibregl-popup-content{ padding:6px 9px; font-size:11.5px; border-radius:7px; box-shadow:0 1px 6px rgba(16,33,43,.14); max-width:260px; }
+  .hovpop .maplibregl-popup-content b{ font-size:12px; } .hovpop .maplibregl-popup-tip{ display:none; }
+</style>
+</head>
+<body>
+<div id="map" aria-label="Map of the Philippines with grid choke points and data-center sites"></div>
+
+<div id="head" class="panel">
+  <h1>gridbill-ph</h1>
+  <p>Can the Philippine grid host the announced data-center wave? Built on the market
+  operator's own public files: where transmission already binds, where the announced
+  megawatts land, and what the spot market and the bill are doing.</p>
+  <div class="scope" id="scope">Archive window loading. Corridor lines are schematic
+  links between named endpoints, not route maps. Data-center pins are city-precision.</div>
+</div>
+
+<div id="modebar" class="panel" role="tablist">
+  <button class="mode on" data-mode="supply" role="tab">1 Supply</button>
+  <button class="mode" data-mode="choke" role="tab">2 Choke points</button>
+  <button class="mode" data-mode="price" role="tab">3 Prices</button>
+</div>
+
+<div id="side" class="panel"></div>
+
+<div id="legend" class="panel">
+  <b id="lg-title">Layers</b>
+  <div class="keys" id="lg-keys"></div>
+  <div id="lg-note"></div>
+</div>
+
+<div id="rail" class="panel">
+  <div class="r-top">
+    <span class="r-kick">The three questions</span>
+    <div id="r-dots"><i class="on"></i><i></i><i></i></div>
+  </div>
+  <div class="r-body">
+    <button class="r-nav" id="r-prev" aria-label="Previous">&#8249;</button>
+    <div class="r-card" id="r-card">
+      <span class="r-tag" id="r-tag">Q1</span>
+      <span class="r-title" id="r-title">Loading the baked answers.</span>
+      <span class="r-stat" id="r-stat"></span>
+      <span class="r-blurb" id="r-blurb"></span>
+      <span class="r-src" id="r-src"></span>
+    </div>
+    <button class="r-nav" id="r-next" aria-label="Next">&#8250;</button>
+  </div>
+  <div class="r-foot">Statistical indicators from public records (IEMOP, NGCP, Meralco,
+  PCIJ, company filings). Patterns may have legitimate explanations. Forecasts are
+  labeled with their owner. <a href="methodology.html">Methodology and every source</a>.</div>
+</div>
+
+<script>
+window.__diag = { ready:false, mode:"supply", chokepoints:0, dcs:0, league:0,
+  priceDays:0, railIndex:0, answers:false, sual:false, layers:0 };
+
+const $ = (id) => document.getElementById(id);
+const fmt = (n, d=0) => n == null ? "n/a" :
+  Number(n).toLocaleString("en-PH", {maximumFractionDigits:d, minimumFractionDigits:d});
+
+const FILES = ["meta.json","answers.json","congestion.json","prices.json",
+  "reliability.json","outages.json","market_anchors.json","demand_anchors.json",
+  "congestion_premium.json","chokepoints.geojson","dc_sites.geojson","sual.geojson"];
+const D = {};
+
+async function loadAll(){
+  const rs = await Promise.allSettled(FILES.map(f =>
+    fetch("data/" + f).then(r => r.ok ? r.json() : null)));
+  FILES.forEach((f, i) => { D[f] = rs[i].status === "fulfilled" ? rs[i].value : null; });
+}
+
+const map = new maplibregl.Map({
+  container: "map",
+  style: {
+    version: 8,
+    sources: { carto: { type: "raster",
+      tiles: ["https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png",
+              "https://b.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png"],
+      tileSize: 256,
+      attribution: "&copy; OpenStreetMap contributors &copy; CARTO" } },
+    layers: [{ id: "carto", type: "raster", source: "carto" }]
+  },
+  center: [122.3, 12.1], zoom: 5.15, minZoom: 4.4, maxZoom: 11,
+  attributionControl: { compact: true }
+});
+map.addControl(new maplibregl.NavigationControl({ showCompass:false }), "bottom-right");
+
+const pop = new maplibregl.Popup({ closeButton:false, closeOnClick:false, className:"hovpop" });
+
+function addLayers(){
+  map.addSource("choke", { type:"geojson", data: D["chokepoints.geojson"] });
+  map.addLayer({ id:"choke-line", type:"line", source:"choke",
+    layout:{ "line-cap":"round" },
+    paint:{
+      "line-color": ["match", ["get","kind"], "hvdc", "#9c3d12", "#3a6b8a"],
+      "line-width": ["case", ["==", ["get","kind"], "hvdc"], 3.4, 2.4],
+      "line-dasharray": [1.6, 1.4],
+      "line-opacity": .9
+    }});
+  map.addSource("dc", { type:"geojson", data: D["dc_sites.geojson"] });
+  map.addLayer({ id:"dc-pt", type:"circle", source:"dc",
+    paint:{
+      "circle-radius": ["case", ["to-boolean", ["get","mw"]],
+        ["interpolate", ["linear"], ["get","mw"], 3, 5, 50, 11, 300, 20], 4.5],
+      "circle-color": ["match", ["get","status"],
+        "operational", "#1a7f48", "under_construction", "#b8860b", "#8a97a0"],
+      "circle-opacity": ["case", ["to-boolean", ["get","mw"]], .82, .18],
+      "circle-stroke-width": 1.4,
+      "circle-stroke-color": ["match", ["get","status"],
+        "operational", "#125c34", "under_construction", "#8a6508", "#5b6b75"]
+    }});
+  map.addSource("sual", { type:"geojson", data: D["sual.geojson"] });
+  map.addLayer({ id:"sual-pt", type:"circle", source:"sual",
+    paint:{ "circle-radius": 8, "circle-color":"#fff",
+      "circle-stroke-width": 3, "circle-stroke-color": "#b3261e" }});
+  window.__diag.layers = 3;
+
+  const hover = (layer, html) => {
+    map.on("mousemove", layer, e => {
+      map.getCanvas().style.cursor = "pointer";
+      pop.setLngLat(e.lngLat).setHTML(html(e.features[0].properties)).addTo(map);
+    });
+    map.on("mouseleave", layer, () => { map.getCanvas().style.cursor = ""; pop.remove(); });
+  };
+  hover("choke-line", p => `<b>${p.name}</b><br>${p.evidence}` +
+    (p.capacity_mw ? `<br>Capacity ${fmt(p.capacity_mw)} MW` : "") +
+    (p.operating_limit_mw ? `, operating limit ${fmt(p.operating_limit_mw)} MW` : "") +
+    `<br><i>Schematic link between named endpoints.</i>`);
+  hover("dc-pt", p => `<b>${p.name}</b><br>${p.city} &middot; ${String(p.status||"").replace("_"," ")}` +
+    (p.mw ? `<br>${fmt(p.mw,1)} MW (public figure)` : "<br>No public MW figure") +
+    (p.note ? `<br>${p.note}` : "") + `<br><i>Pin is city-precision.</i>`);
+  hover("sual-pt", p => `<b>${p.name}</b><br>${p.location}<br>` +
+    `${p.units} x ${fmt(p.unit_mw)} MW, the largest single units on the Luzon grid.`);
+}
+
+/* ---------- rail ---------- */
+let RAIL = [], RAIL_I = 0;
+function railRender(){
+  const c = RAIL[RAIL_I]; if (!c) return;
+  $("r-tag").textContent = c.tag; $("r-title").textContent = c.title;
+  $("r-stat").textContent = c.stat || ""; $("r-blurb").textContent = c.blurb || "";
+  $("r-src").textContent = c.src || "";
+  document.querySelectorAll("#r-dots i").forEach((el, i) =>
+    el.classList.toggle("on", i === RAIL_I));
+  $("r-prev").disabled = RAIL_I === 0; $("r-next").disabled = RAIL_I === RAIL.length - 1;
+  window.__diag.railIndex = RAIL_I;
+  const modes = ["supply","choke","price"];
+  setMode(modes[RAIL_I], false);
+}
+$("r-prev").onclick = () => { if (RAIL_I > 0){ RAIL_I--; railRender(); } };
+$("r-next").onclick = () => { if (RAIL_I < RAIL.length - 1){ RAIL_I++; railRender(); } };
+
+/* ---------- side panel per mode ---------- */
+let MODE = "supply", SUAL_ON = false;
+
+function esc(s){ const d = document.createElement("i"); d.textContent = s == null ? "" : String(s); return d.innerHTML; }
+
+function sideSupply(){
+  const A = D["market_anchors.json"] || {};
+  const an = D["demand_anchors.json"] || [];
+  const margin = A.wesm_may2026_margin_mw;
+  let bars = "";
+  const items = an.filter(a => a.kind !== "contested");
+  const maxmw = Math.max(...items.map(a => a.mw || a.mw_high || 0), margin || 0);
+  const color = { forecast:"#8a97a0", commitment:"#b8860b", pipeline:"#3a6b8a" };
+  bars += barRow("System supply margin, May 2026 (IEMOP)", margin, maxmw, "#1a7f48");
+  for (const a of items){
+    bars += barRow(a.label + " [" + a.kind + "]", a.mw || a.mw_high, maxmw,
+                   color[a.kind] || "#8a97a0", a.mw_low);
+  }
+  const contested = an.find(a => a.kind === "contested");
+  const R = D["reliability.json"];
+  let rec = "";
+  if (R && R.totals){
+    const t = R.totals;
+    const cd = ["luzon","visayas","mindanao"].reduce((s,g)=>s+(t[g]?t[g].curtailment_days:0),0);
+    const cm = ["luzon","visayas","mindanao"].reduce((s,g)=>s+(t[g]?t[g].curtailed_mwh_total:0),0);
+    rec = `<div class="kv"><span>Grid-days with load curtailed in RTD dispatch schedules</span><span>${fmt(cd)}</span></div>
+    <div class="kv"><span>Energy curtailed in those schedules</span><span>${fmt(cm)} MWh</span></div>`;
+  }
+  return `<h2>Is there room for the wave?</h2>
+  <p class="sub">Announced and forecast data-center megawatts against the whole
+  system's May 2026 supply margin. A data center is close to flat 24/7 load, so it
+  consumes margin around the clock, not just at the evening peak.</p>
+  ${bars}${rec}
+  <div class="note">Every figure is a labeled forecast, commitment, or pipeline
+  count with its owner; none is our estimate. Operational capacity today is
+  contested: ${contested ? esc(contested.owner) + " put it between " +
+  fmt(contested.mw_low) + " and " + fmt(contested.mw_high) + " MW" : "n/a"}.
+  The margin is system-wide; Visayas ran ${fmt((D["market_anchors.json"]||{}).visayas_yellow_streak_weeks)}
+  straight weeks of yellow alerts in June 2026 with ${fmt((D["market_anchors.json"]||{}).visayas_forced_outage_mw)}
+  MW on forced outage, so the national number overstates local headroom.</div>`;
+}
+function barRow(label, val, max, color, low){
+  const pct = Math.max(2, Math.round(100 * (val || 0) / (max || 1)));
+  const lowTxt = low ? fmt(low) + " to " : "";
+  return `<div class="barrow"><div class="lab"><span>${esc(label)}</span>
+    <b>${lowTxt}${fmt(val)} MW</b></div>
+    <div class="tr"><div class="fl" style="width:${pct}%;background:${color}"></div></div></div>`;
+}
+
+function sideChoke(){
+  const C = D["congestion.json"] || {};
+  const A = D["market_anchors.json"] || {};
+  const league = (C.league || []).slice(0, 10);
+  let rows = league.map(e =>
+    `<tr><td>${esc(e.equipment)}</td><td>${esc(e.station)}</td>
+     <td class="num">${fmt(e.days)}</td><td class="num">${fmt(e.intervals)}</td></tr>`).join("");
+  const O = D["outages.json"] || {};
+  const sualDays = O.sual_outage_day_count;
+  const R = D["reliability.json"];
+  let slackline = "";
+  if (R && R.totals && R.totals.luzon){
+    const L = R.totals.luzon;
+    slackline = `<div class="kv"><span>Luzon days with scheduled reserve below requirement</span>
+      <span>${fmt(L.reserve_shortfall_days)}</span></div>
+    <div class="kv"><span>Median daily minimum reserve slack, Luzon</span>
+      <span>${fmt(L.median_daily_min_reserve_slack_mw)} MW</span></div>`;
+  }
+  return `<h2>Where the grid already binds</h2>
+  <p class="sub">Named equipment at its limit, straight from IEMOP's public
+  "congestions manifesting" files over the archive window. The Leyte-Luzon HVDC
+  ran at its ${fmt(A.hvdc_binding_share_dec2025_pct)}% share of the December 2025
+  billing period at max or offline (IEMOP monthly report).</p>
+  <table><thead><tr><th>Equipment</th><th>Station</th><th>Days</th><th>5-min rows</th></tr></thead>
+  <tbody>${rows || "<tr><td colspan=4>Bake pending.</td></tr>"}</tbody></table>
+  ${slackline}
+  <button class="sual-btn" id="sualbtn">What if a Sual unit trips? (-647 MW)</button>
+  <div class="note" id="sualread">${sualDays != null ?
+    "The archive's outage files list a Sual unit out on " + fmt(sualDays) +
+    " day(s) in this window. " : ""}Sual's two 647 MW units are the largest single
+  contingencies on the Luzon grid; the toggle subtracts one unit from the May 2026
+  system margin as arithmetic, not a dispatch simulation.</div>`;
+}
+
+function sideprice(){
+  const P = D["prices.json"] || {};
+  const A = D["market_anchors.json"] || {};
+  let spark = "";
+  if (P.dates && P.dates.length){
+    spark = sparkSVG(P);
+    window.__diag.priceDays = P.dates.length;
+  }
+  const mer = `
+    <div class="kv"><span>WESM cost in Meralco June supply</span><span>P${fmt(A.meralco_june2026_wesm_cost_php_kwh,2)}/kWh</span></div>
+    <div class="kv"><span>Meralco June generation charge</span><span>P${fmt(A.meralco_june2026_generation_charge,2)}/kWh</span></div>
+    <div class="kv"><span>Meralco June overall rate</span><span>P${fmt(A.meralco_june2026_rate_php_kwh,2)}/kWh</span></div>
+    <div class="kv"><span>June change</span><span>+P${fmt(A.meralco_june2026_delta_php_kwh,4)}/kWh</span></div>`;
+  return `<h2>What it does to prices</h2>
+  <p class="sub">Daily load-weighted average price per grid from the archive.
+  May 2026, the first full month after the market resumed, averaged
+  P${fmt(A.wesm_may2026_system_avg_php_kwh,2)}/kWh system-wide
+  (+${fmt(A.wesm_may2026_vs_april_pct,1)}% vs April): Luzon
+  P${fmt(A.wesm_may2026_luzon,2)}, Visayas P${fmt(A.wesm_may2026_visayas,2)},
+  Mindanao P${fmt(A.wesm_may2026_mindanao,2)}. One grid on paper; the links
+  between the islands are the reason the numbers differ.</p>
+  <div id="spark">${spark || '<div class="note">Price bake pending.</div>'}</div>
+  ${P.max_spread && P.max_spread.date ? `<div class="note">Widest daily
+  regional spread in the window: P${fmt(P.max_spread.php,2)}/kWh on
+  ${esc(P.max_spread.date)}.</div>` : ""}
+  <h2 style="margin-top:12px">The bill translation</h2>
+  ${mer}
+  <div class="note">The generation charge is the biggest slice of a Meralco bill
+  and moves with WESM through monthly pass-through; the June advisory attributes
+  the increase to WESM at P${fmt(A.meralco_june2026_wesm_cost_php_kwh,2)}/kWh.
+  Wholesale movements are not one-for-one bill movements.</div>`;
+}
+function sparkSVG(P){
+  const W = 300, H = 90, pad = 6;
+  const series = [["luzon","#3a6b8a"],["visayas","#9c3d12"],["mindanao","#1a7f48"]];
+  const all = series.flatMap(([k]) => (P.series[k] || []).filter(v => v != null));
+  if (!all.length) return "";
+  const mn = Math.min(...all), mx = Math.max(...all);
+  const x = i => pad + (W - 2*pad) * i / Math.max(1, P.dates.length - 1);
+  const y = v => H - pad - (H - 2*pad) * (v - mn) / Math.max(.001, mx - mn);
+  let paths = "";
+  for (const [k, col] of series){
+    const pts = (P.series[k] || []).map((v, i) => v == null ? null : `${x(i).toFixed(1)},${y(v).toFixed(1)}`)
+      .filter(Boolean).join(" ");
+    if (pts) paths += `<polyline fill="none" stroke="${col}" stroke-width="1.8" points="${pts}" />`;
+  }
+  const legend = series.map(([k, col]) =>
+    `<tspan fill="${col}">&#9632; ${k}</tspan>`).join("  ");
+  return `<svg viewBox="0 0 ${W} ${H + 16}" role="img"
+    aria-label="Daily load weighted average price per grid">
+    ${paths}
+    <text x="${pad}" y="${H + 11}" font-size="9" fill="#5b6b75">${legend}
+      <tspan fill="#5b6b75">  P${fmt(mn,1)} to P${fmt(mx,1)}/kWh</tspan></text></svg>`;
+}
+
+const LEGENDS = {
+  supply: { title:"Data-center sites (public record)", keys: [
+    ["sw","#1a7f48","Operational (public MW shown by size)"],
+    ["sw","#b8860b","Under construction"],
+    ["sw","#8a97a0","Planned or announced"],
+    ["sw","#fff;border:2px solid #b3261e","Sual coal plant (2 x 647 MW)"]],
+    note:"Hollow dots have no public MW figure. Pins are city-precision. Not a complete inventory: Cushman counts 24 operational facilities; DataCenterMap lists 44." },
+  choke: { title:"Grid choke points", keys: [
+    ["ln","#9c3d12","HVDC inter-island link (dashed = schematic)"],
+    ["ln","#3a6b8a","AC corridor named congested in primary sources"]],
+    note:"Lines connect named endpoints (converter stations, substation areas). They are not route maps." },
+  price: { title:"Prices and the links", keys: [
+    ["ln","#9c3d12","HVDC links: when they bind, the regional prices separate"],
+    ["sw","#1a7f48","Data-center sites for reference"]],
+    note:"Regional price series in the panel; the spread is the geography." }
+};
+function legendRender(){
+  const L = LEGENDS[MODE];
+  $("lg-title").textContent = L.title;
+  $("lg-keys").innerHTML = L.keys.map(([kind, c, t]) =>
+    kind === "ln"
+      ? `<span class="k"><span class="ln" style="border-color:${c}"></span>${t}</span>`
+      : `<span class="k"><span class="sw" style="background:${c}"></span>${t}</span>`).join("");
+  $("lg-note").textContent = L.note;
+}
+
+function setMode(m, syncRail = true){
+  MODE = m; window.__diag.mode = m;
+  document.querySelectorAll(".mode").forEach(b =>
+    b.classList.toggle("on", b.dataset.mode === m));
+  const S = $("side");
+  S.innerHTML = m === "supply" ? sideSupply() : m === "choke" ? sideChoke() : sideprice();
+  legendRender();
+  if (m === "choke"){
+    const btn = $("sualbtn");
+    if (btn) btn.onclick = () => sualToggle(btn);
+  }
+  if (map.getLayer("dc-pt"))
+    map.setLayoutProperty("dc-pt", "visibility", m === "choke" ? "none" : "visible");
+  if (syncRail){
+    const idx = ["supply","choke","price"].indexOf(m);
+    if (idx >= 0 && idx !== RAIL_I){ RAIL_I = idx; railRender(); }
+  }
+}
+document.querySelectorAll(".mode").forEach(b =>
+  b.onclick = () => setMode(b.dataset.mode));
+
+function sualToggle(btn){
+  SUAL_ON = !SUAL_ON; window.__diag.sual = SUAL_ON;
+  btn.classList.toggle("on", SUAL_ON);
+  const A = D["market_anchors.json"] || {};
+  const read = $("sualread");
+  if (!read) return;
+  if (SUAL_ON){
+    const m = A.wesm_may2026_margin_mw, left = m - 647;
+    read.innerHTML = `Take one 647 MW Sual unit out of the May 2026 system margin of
+    ${fmt(m)} MW and ${fmt(left)} MW remains for everything else: the evening peak,
+    forced outages (${fmt(A.visayas_forced_outage_mw)} MW were already out in the
+    Visayas in late June), reserves, and any new 24/7 load. Both units:
+    ${fmt(m - 1294)} MW. Arithmetic on the operator's published margin, not a
+    dispatch simulation; the margin itself moves daily.`;
+  } else {
+    read.innerHTML = `Sual's two 647 MW units are the largest single contingencies
+    on the Luzon grid; the toggle subtracts one unit from the May 2026 system margin
+    as arithmetic, not a dispatch simulation.`;
+  }
+}
+
+/* ---------- boot ---------- */
+loadAll().then(() => {
+  const A = D["answers.json"];
+  const M = D["meta.json"] || {};
+  const C = D["congestion.json"] || {};
+  window.__diag.answers = !!A;
+  window.__diag.league = (C.league || []).length;
+  if (C.window) $("scope").textContent =
+    `IEMOP archive window ${C.window.from} to ${C.window.to} (` +
+    `${fmt(C.days_covered)} days; the public window is rolling, this repo keeps ` +
+    `the history). Corridor lines are schematic. Data-center pins are city-precision.`;
+  RAIL = A ? [
+    { tag:"Q1 Supply", ...A.q1 },
+    { tag:"Q2 Infrastructure", ...A.q2 },
+    { tag:"Q3 Prices", ...A.q3 },
+  ] : [
+    { tag:"Q1", title:"Can the grid handle more data centers?", stat:"Bake pending", blurb:"Run make data." },
+    { tag:"Q2", title:"Where would they have to sit?", stat:"Bake pending" },
+    { tag:"Q3", title:"What happens to prices?", stat:"Bake pending" },
+  ];
+  const draw = () => {
+    if (D["chokepoints.geojson"]) addLayers();
+    window.__diag.chokepoints = (D["chokepoints.geojson"]||{features:[]}).features.length;
+    window.__diag.dcs = (D["dc_sites.geojson"]||{features:[]}).features.length;
+    railRender(); setMode("supply", false);
+    window.__diag.ready = true;
+  };
+  if (map.isStyleLoaded()) draw(); else map.once("load", draw);
+});
+</script>
+</body>
+</html>

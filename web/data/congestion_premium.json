@@ -1,0 +1,51 @@
+{
+ "days": [
+  "2026-06-25",
+  "2026-06-26"
+ ],
+ "regions": {
+  "luzon": [
+   {
+    "date": "2026-06-25",
+    "n": 168192,
+    "share_nonzero_pct": 0.0,
+    "max_abs_php_kwh": 0.0
+   },
+   {
+    "date": "2026-06-26",
+    "n": 7008,
+    "share_nonzero_pct": 0.0,
+    "max_abs_php_kwh": 0.0
+   }
+  ],
+  "visayas": [
+   {
+    "date": "2026-06-25",
+    "n": 89856,
+    "share_nonzero_pct": 0.0,
+    "max_abs_php_kwh": 0.0
+   },
+   {
+    "date": "2026-06-26",
+    "n": 3744,
+    "share_nonzero_pct": 0.0,
+    "max_abs_php_kwh": 0.0
+   }
+  ],
+  "mindanao": [
+   {
+    "date": "2026-06-25",
+    "n": 86400,
+    "share_nonzero_pct": 0.0,
+    "max_abs_php_kwh": 0.0
+   },
+   {
+    "date": "2026-06-26",
+    "n": 3600,
+    "share_nonzero_pct": 0.0,
+    "max_abs_php_kwh": 0.0
+   }
+  ]
+ },
+ "unit": "LMP congestion component, PhP/kWh (from PhP/MWh)"
+}

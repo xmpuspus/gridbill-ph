@@ -1,0 +1,143 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      124.6392,
+      11.0886
+     ],
+     [
+      123.2386,
+      13.6111
+     ]
+    ]
+   },
+   "properties": {
+    "id": "leyte_luzon_hvdc",
+    "name": "Leyte-Luzon HVDC",
+    "kind": "hvdc",
+    "capacity_mw": 440,
+    "operating_limit_mw": 250,
+    "evidence": "At its 250 MW Luzon-to-Visayas limit or offline 69% of the Dec 2025 billing period (IEMOP)",
+    "src": "https://www.iemop.ph/news/december-2025-power-market-luzon-prices-ease-as-supply-improves-visayas-and-mindanao-experience-tighter-conditions/",
+    "precision": "schematic"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      123.338,
+      9.4177
+     ],
+     [
+      123.4243,
+      8.6549
+     ]
+    ]
+   },
+   "properties": {
+    "id": "mvip_hvdc",
+    "name": "Mindanao-Visayas HVDC (MVIP)",
+    "kind": "hvdc",
+    "capacity_mw": 450,
+    "operating_limit_mw": null,
+    "evidence": "Frequently at maximum or security-limited transfer levels in May 2026 (IEMOP monthly report)",
+    "src": "https://powerphilippines.com/wesm-prices-rise-38-5-in-may-as-demand-growth-outpaces-supply/",
+    "precision": "schematic"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      124.6392,
+      11.0886
+     ],
+     [
+      123.9,
+      10.32
+     ]
+    ]
+   },
+   "properties": {
+    "id": "leyte_cebu_230kv",
+    "name": "230 kV Leyte-Cebu corridor",
+    "kind": "ac",
+    "capacity_mw": null,
+    "operating_limit_mw": null,
+    "evidence": "Named congested corridor limiting internal Visayas transfers, elevating Leyte nodal prices (IEMOP Dec 2025)",
+    "src": "https://www.iemop.ph/news/december-2025-power-market-luzon-prices-ease-as-supply-improves-visayas-and-mindanao-experience-tighter-conditions/",
+    "precision": "schematic"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      123.9,
+      10.32
+     ],
+     [
+      123.9494,
+      10.3103
+     ]
+    ]
+   },
+   "properties": {
+    "id": "cebu_import",
+    "name": "Cebu import corridor (Cebu-Lapu-Lapu 230 kV)",
+    "kind": "ac",
+    "capacity_mw": null,
+    "operating_limit_mw": null,
+    "evidence": "Congestion relief targeted by NGCP projects due 2026 (TDP project list; PIA)",
+    "src": "https://pia.gov.ph/news/major-ngcp-projects-set-to-ease-power-congestion-in-cebu-by-2026/",
+    "precision": "schematic"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      123.8,
+      10.25
+     ],
+     [
+      123.2,
+      9.4
+     ],
+     [
+      122.95,
+      10.66
+     ],
+     [
+      122.55,
+      10.7
+     ]
+    ]
+   },
+   "properties": {
+    "id": "cnp_backbone",
+    "name": "Cebu-Negros-Panay 230 kV backbone",
+    "kind": "ac",
+    "capacity_mw": null,
+    "operating_limit_mw": null,
+    "evidence": "Backbone reinforced 2024 to relieve Region 6 constraints; Visayas ran 7 straight weeks of yellow alerts in June 2026",
+    "src": "https://cebudailynews.inquirer.net/740334/visayas-grid-enters-7th-straight-week-of-yellow-alerts",
+    "precision": "schematic"
+   }
+  }
+ ]
+}

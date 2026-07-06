@@ -1,0 +1,15 @@
+{
+ "header": [
+  "",
+  "END_TIME",
+  "HVDC_LIMIT_TYPE",
+  "HVDC_NAME",
+  "MAX_MW",
+  "MIN_MW",
+  "MKT_TYPE",
+  "RUN_TIME",
+  "START_TIME"
+ ],
+ "files": 90,
+ "note": "schema captured; per-interval limit series is a v1.1 layer"
+}

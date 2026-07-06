@@ -1,0 +1,2036 @@
+{
+ "dates": [
+  "2026-04-07",
+  "2026-04-08",
+  "2026-04-09",
+  "2026-04-10",
+  "2026-04-11",
+  "2026-04-12",
+  "2026-04-13",
+  "2026-04-14",
+  "2026-04-15",
+  "2026-04-16",
+  "2026-04-17",
+  "2026-04-18",
+  "2026-04-19",
+  "2026-04-20",
+  "2026-04-21",
+  "2026-04-22",
+  "2026-04-23",
+  "2026-04-24",
+  "2026-04-25",
+  "2026-04-26",
+  "2026-04-27",
+  "2026-04-28",
+  "2026-04-29",
+  "2026-04-30",
+  "2026-05-01",
+  "2026-05-02",
+  "2026-05-03",
+  "2026-05-04",
+  "2026-05-05",
+  "2026-05-06",
+  "2026-05-07",
+  "2026-05-08",
+  "2026-05-09",
+  "2026-05-10",
+  "2026-05-11",
+  "2026-05-12",
+  "2026-05-13",
+  "2026-05-14",
+  "2026-05-15",
+  "2026-05-16",
+  "2026-05-17",
+  "2026-05-18",
+  "2026-05-19",
+  "2026-05-20",
+  "2026-05-21",
+  "2026-05-22",
+  "2026-05-23",
+  "2026-05-24",
+  "2026-05-25",
+  "2026-05-26",
+  "2026-05-27",
+  "2026-05-28",
+  "2026-05-29",
+  "2026-05-30",
+  "2026-05-31",
+  "2026-06-01",
+  "2026-06-02",
+  "2026-06-03",
+  "2026-06-04",
+  "2026-06-05",
+  "2026-06-06",
+  "2026-06-07",
+  "2026-06-08",
+  "2026-06-09",
+  "2026-06-10",
+  "2026-06-11",
+  "2026-06-12",
+  "2026-06-13",
+  "2026-06-14",
+  "2026-06-15",
+  "2026-06-16",
+  "2026-06-17",
+  "2026-06-18",
+  "2026-06-19",
+  "2026-06-20",
+  "2026-06-21",
+  "2026-06-22",
+  "2026-06-23",
+  "2026-06-24",
+  "2026-06-25",
+  "2026-06-26",
+  "2026-06-27",
+  "2026-06-28",
+  "2026-06-29",
+  "2026-06-30",
+  "2026-07-01",
+  "2026-07-02",
+  "2026-07-03",
+  "2026-07-04",
+  "2026-07-05"
+ ],
+ "series": {
+  "luzon": [
+   {
+    "date": "2026-04-07",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 1.05,
+    "reserve_slack_min_mw": -18.5,
+    "reserve_shortfall_intervals": 1
+   },
+   {
+    "date": "2026-04-08",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -77.0,
+    "reserve_shortfall_intervals": 21
+   },
+   {
+    "date": "2026-04-09",
+    "load_bid_peak_mw": 160.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -109.6,
+    "reserve_shortfall_intervals": 59
+   },
+   {
+    "date": "2026-04-10",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 13.27,
+    "reserve_slack_min_mw": -117.9,
+    "reserve_shortfall_intervals": 35
+   },
+   {
+    "date": "2026-04-11",
+    "load_bid_peak_mw": 306.0,
+    "curtailed_mwh": 0.51,
+    "reserve_slack_min_mw": -95.1,
+    "reserve_shortfall_intervals": 18
+   },
+   {
+    "date": "2026-04-12",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-13",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.33,
+    "reserve_slack_min_mw": -153.6,
+    "reserve_shortfall_intervals": 11
+   },
+   {
+    "date": "2026-04-14",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -166.8,
+    "reserve_shortfall_intervals": 58
+   },
+   {
+    "date": "2026-04-15",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 16.88,
+    "reserve_slack_min_mw": -43.0,
+    "reserve_shortfall_intervals": 3
+   },
+   {
+    "date": "2026-04-16",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.22,
+    "reserve_slack_min_mw": -556.5,
+    "reserve_shortfall_intervals": 73
+   },
+   {
+    "date": "2026-04-17",
+    "load_bid_peak_mw": 306.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -62.9,
+    "reserve_shortfall_intervals": 66
+   },
+   {
+    "date": "2026-04-18",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.18,
+    "reserve_slack_min_mw": -2.7,
+    "reserve_shortfall_intervals": 1
+   },
+   {
+    "date": "2026-04-19",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-20",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.11,
+    "reserve_slack_min_mw": -34.4,
+    "reserve_shortfall_intervals": 9
+   },
+   {
+    "date": "2026-04-21",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -310.8,
+    "reserve_shortfall_intervals": 180
+   },
+   {
+    "date": "2026-04-22",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 194.64,
+    "reserve_slack_min_mw": -116.2,
+    "reserve_shortfall_intervals": 36
+   },
+   {
+    "date": "2026-04-23",
+    "load_bid_peak_mw": 308.0,
+    "curtailed_mwh": 0.63,
+    "reserve_slack_min_mw": -244.7,
+    "reserve_shortfall_intervals": 152
+   },
+   {
+    "date": "2026-04-24",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 60.38,
+    "reserve_slack_min_mw": -211.2,
+    "reserve_shortfall_intervals": 118
+   },
+   {
+    "date": "2026-04-25",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 17.25,
+    "reserve_slack_min_mw": -203.1,
+    "reserve_shortfall_intervals": 97
+   },
+   {
+    "date": "2026-04-26",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 5.19,
+    "reserve_slack_min_mw": -45.5,
+    "reserve_shortfall_intervals": 4
+   },
+   {
+    "date": "2026-04-27",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 1.88,
+    "reserve_slack_min_mw": -83.0,
+    "reserve_shortfall_intervals": 42
+   },
+   {
+    "date": "2026-04-28",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -429.9,
+    "reserve_shortfall_intervals": 234
+   },
+   {
+    "date": "2026-04-29",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -153.5,
+    "reserve_shortfall_intervals": 40
+   },
+   {
+    "date": "2026-04-30",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -96.4,
+    "reserve_shortfall_intervals": 61
+   },
+   {
+    "date": "2026-05-01",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -44.6,
+    "reserve_shortfall_intervals": 4
+   },
+   {
+    "date": "2026-05-02",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -52.5,
+    "reserve_shortfall_intervals": 13
+   },
+   {
+    "date": "2026-05-03",
+    "load_bid_peak_mw": 463.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -17.5,
+    "reserve_shortfall_intervals": 4
+   },
+   {
+    "date": "2026-05-04",
+    "load_bid_peak_mw": 463.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -37.5,
+    "reserve_shortfall_intervals": 67
+   },
+   {
+    "date": "2026-05-05",
+    "load_bid_peak_mw": 465.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -47.0,
+    "reserve_shortfall_intervals": 50
+   },
+   {
+    "date": "2026-05-06",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -28.1,
+    "reserve_shortfall_intervals": 10
+   },
+   {
+    "date": "2026-05-07",
+    "load_bid_peak_mw": 465.0,
+    "curtailed_mwh": 0.29,
+    "reserve_slack_min_mw": -32.0,
+    "reserve_shortfall_intervals": 25
+   },
+   {
+    "date": "2026-05-08",
+    "load_bid_peak_mw": 465.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-09",
+    "load_bid_peak_mw": 465.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-10",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -21.7,
+    "reserve_shortfall_intervals": 19
+   },
+   {
+    "date": "2026-05-11",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 313.66,
+    "reserve_slack_min_mw": -8.7,
+    "reserve_shortfall_intervals": 1
+   },
+   {
+    "date": "2026-05-12",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 4.43,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-13",
+    "load_bid_peak_mw": 317.0,
+    "curtailed_mwh": 53.45,
+    "reserve_slack_min_mw": -668.0,
+    "reserve_shortfall_intervals": 250
+   },
+   {
+    "date": "2026-05-14",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 40.88,
+    "reserve_slack_min_mw": -637.0,
+    "reserve_shortfall_intervals": 515
+   },
+   {
+    "date": "2026-05-15",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 82.66,
+    "reserve_slack_min_mw": -621.1,
+    "reserve_shortfall_intervals": 412
+   },
+   {
+    "date": "2026-05-16",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 11.96,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-17",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-18",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-19",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-20",
+    "load_bid_peak_mw": 318.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-21",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 9.07,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-22",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 12.36,
+    "reserve_slack_min_mw": -21.2,
+    "reserve_shortfall_intervals": 5
+   },
+   {
+    "date": "2026-05-23",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 6.19,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-24",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 5.23,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-25",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 6.06,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-26",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 12.12,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-27",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 2.2,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-28",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 3.87,
+    "reserve_slack_min_mw": -39.3,
+    "reserve_shortfall_intervals": 2
+   },
+   {
+    "date": "2026-05-29",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 0.7,
+    "reserve_slack_min_mw": -511.1,
+    "reserve_shortfall_intervals": 39
+   },
+   {
+    "date": "2026-05-30",
+    "load_bid_peak_mw": 465.0,
+    "curtailed_mwh": 9.16,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-31",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-01",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -34.2,
+    "reserve_shortfall_intervals": 13
+   },
+   {
+    "date": "2026-06-02",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-03",
+    "load_bid_peak_mw": 317.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-04",
+    "load_bid_peak_mw": 317.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-05",
+    "load_bid_peak_mw": 317.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-06",
+    "load_bid_peak_mw": 465.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-07",
+    "load_bid_peak_mw": 465.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-08",
+    "load_bid_peak_mw": 317.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-09",
+    "load_bid_peak_mw": 317.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-10",
+    "load_bid_peak_mw": 465.0,
+    "curtailed_mwh": 6.89,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-11",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 2.92,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-12",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 0.04,
+    "reserve_slack_min_mw": -16.8,
+    "reserve_shortfall_intervals": 1
+   },
+   {
+    "date": "2026-06-13",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-14",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-15",
+    "load_bid_peak_mw": 318.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-16",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -14.0,
+    "reserve_shortfall_intervals": 2
+   },
+   {
+    "date": "2026-06-17",
+    "load_bid_peak_mw": 306.0,
+    "curtailed_mwh": 3.65,
+    "reserve_slack_min_mw": -46.9,
+    "reserve_shortfall_intervals": 4
+   },
+   {
+    "date": "2026-06-18",
+    "load_bid_peak_mw": 306.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -51.4,
+    "reserve_shortfall_intervals": 1
+   },
+   {
+    "date": "2026-06-19",
+    "load_bid_peak_mw": 306.0,
+    "curtailed_mwh": 2.85,
+    "reserve_slack_min_mw": -29.4,
+    "reserve_shortfall_intervals": 5
+   },
+   {
+    "date": "2026-06-20",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 12.28,
+    "reserve_slack_min_mw": -3.8,
+    "reserve_shortfall_intervals": 1
+   },
+   {
+    "date": "2026-06-21",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 10.12,
+    "reserve_slack_min_mw": -4.8,
+    "reserve_shortfall_intervals": 1
+   },
+   {
+    "date": "2026-06-22",
+    "load_bid_peak_mw": 306.0,
+    "curtailed_mwh": 3.34,
+    "reserve_slack_min_mw": -2.0,
+    "reserve_shortfall_intervals": 1
+   },
+   {
+    "date": "2026-06-23",
+    "load_bid_peak_mw": 306.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -158.6,
+    "reserve_shortfall_intervals": 36
+   },
+   {
+    "date": "2026-06-24",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -218.8,
+    "reserve_shortfall_intervals": 54
+   },
+   {
+    "date": "2026-06-25",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -234.8,
+    "reserve_shortfall_intervals": 71
+   },
+   {
+    "date": "2026-06-26",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-27",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-28",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-29",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-30",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 132.25,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-07-01",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -15.5,
+    "reserve_shortfall_intervals": 1
+   },
+   {
+    "date": "2026-07-02",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -18.7,
+    "reserve_shortfall_intervals": 3
+   },
+   {
+    "date": "2026-07-03",
+    "load_bid_peak_mw": 308.0,
+    "curtailed_mwh": 4.14,
+    "reserve_slack_min_mw": -5.5,
+    "reserve_shortfall_intervals": 1
+   },
+   {
+    "date": "2026-07-04",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 0.13,
+    "reserve_slack_min_mw": -37.2,
+    "reserve_shortfall_intervals": 22
+   },
+   {
+    "date": "2026-07-05",
+    "load_bid_peak_mw": 466.0,
+    "curtailed_mwh": 18.32,
+    "reserve_slack_min_mw": -25.9,
+    "reserve_shortfall_intervals": 11
+   }
+  ],
+  "visayas": [
+   {
+    "date": "2026-04-07",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-08",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-09",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-10",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-11",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-12",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-13",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -13.5,
+    "reserve_shortfall_intervals": 4
+   },
+   {
+    "date": "2026-04-14",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-15",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-16",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -122.7,
+    "reserve_shortfall_intervals": 58
+   },
+   {
+    "date": "2026-04-17",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-18",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-19",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-20",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-21",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -6.9,
+    "reserve_shortfall_intervals": 8
+   },
+   {
+    "date": "2026-04-22",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-23",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-24",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-25",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-26",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-27",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -5.3,
+    "reserve_shortfall_intervals": 3
+   },
+   {
+    "date": "2026-04-28",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -107.6,
+    "reserve_shortfall_intervals": 32
+   },
+   {
+    "date": "2026-04-29",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 3.46,
+    "reserve_slack_min_mw": -20.5,
+    "reserve_shortfall_intervals": 3
+   },
+   {
+    "date": "2026-04-30",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-01",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-02",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-03",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-04",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-05",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-06",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -19.6,
+    "reserve_shortfall_intervals": 10
+   },
+   {
+    "date": "2026-05-07",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -35.6,
+    "reserve_shortfall_intervals": 11
+   },
+   {
+    "date": "2026-05-08",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -63.0,
+    "reserve_shortfall_intervals": 19
+   },
+   {
+    "date": "2026-05-09",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-10",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-11",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -84.4,
+    "reserve_shortfall_intervals": 62
+   },
+   {
+    "date": "2026-05-12",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 45.94,
+    "reserve_slack_min_mw": -123.0,
+    "reserve_shortfall_intervals": 121
+   },
+   {
+    "date": "2026-05-13",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 3.92,
+    "reserve_slack_min_mw": -150.0,
+    "reserve_shortfall_intervals": 205
+   },
+   {
+    "date": "2026-05-14",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 11.68,
+    "reserve_slack_min_mw": -123.0,
+    "reserve_shortfall_intervals": 232
+   },
+   {
+    "date": "2026-05-15",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 94.58,
+    "reserve_slack_min_mw": -74.6,
+    "reserve_shortfall_intervals": 212
+   },
+   {
+    "date": "2026-05-16",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -63.0,
+    "reserve_shortfall_intervals": 31
+   },
+   {
+    "date": "2026-05-17",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-18",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -114.9,
+    "reserve_shortfall_intervals": 125
+   },
+   {
+    "date": "2026-05-19",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -75.3,
+    "reserve_shortfall_intervals": 77
+   },
+   {
+    "date": "2026-05-20",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 58.4,
+    "reserve_slack_min_mw": -107.3,
+    "reserve_shortfall_intervals": 123
+   },
+   {
+    "date": "2026-05-21",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 355.79,
+    "reserve_slack_min_mw": -74.6,
+    "reserve_shortfall_intervals": 200
+   },
+   {
+    "date": "2026-05-22",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 32.11,
+    "reserve_slack_min_mw": -75.0,
+    "reserve_shortfall_intervals": 148
+   },
+   {
+    "date": "2026-05-23",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 2.64,
+    "reserve_slack_min_mw": -26.7,
+    "reserve_shortfall_intervals": 5
+   },
+   {
+    "date": "2026-05-24",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 1.31,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-25",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 15.79,
+    "reserve_slack_min_mw": -123.0,
+    "reserve_shortfall_intervals": 136
+   },
+   {
+    "date": "2026-05-26",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -85.0,
+    "reserve_shortfall_intervals": 111
+   },
+   {
+    "date": "2026-05-27",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -17.0,
+    "reserve_shortfall_intervals": 11
+   },
+   {
+    "date": "2026-05-28",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 168.54,
+    "reserve_slack_min_mw": -74.2,
+    "reserve_shortfall_intervals": 186
+   },
+   {
+    "date": "2026-05-29",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 156.2,
+    "reserve_slack_min_mw": -73.7,
+    "reserve_shortfall_intervals": 176
+   },
+   {
+    "date": "2026-05-30",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -63.0,
+    "reserve_shortfall_intervals": 43
+   },
+   {
+    "date": "2026-05-31",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -20.5,
+    "reserve_shortfall_intervals": 3
+   },
+   {
+    "date": "2026-06-01",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 31.49,
+    "reserve_slack_min_mw": -123.0,
+    "reserve_shortfall_intervals": 155
+   },
+   {
+    "date": "2026-06-02",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -123.0,
+    "reserve_shortfall_intervals": 141
+   },
+   {
+    "date": "2026-06-03",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 35.74,
+    "reserve_slack_min_mw": -123.0,
+    "reserve_shortfall_intervals": 125
+   },
+   {
+    "date": "2026-06-04",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 11.85,
+    "reserve_slack_min_mw": -112.8,
+    "reserve_shortfall_intervals": 91
+   },
+   {
+    "date": "2026-06-05",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.38,
+    "reserve_slack_min_mw": -82.5,
+    "reserve_shortfall_intervals": 94
+   },
+   {
+    "date": "2026-06-06",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -39.5,
+    "reserve_shortfall_intervals": 5
+   },
+   {
+    "date": "2026-06-07",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.61,
+    "reserve_slack_min_mw": -123.0,
+    "reserve_shortfall_intervals": 30
+   },
+   {
+    "date": "2026-06-08",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -89.6,
+    "reserve_shortfall_intervals": 131
+   },
+   {
+    "date": "2026-06-09",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -121.4,
+    "reserve_shortfall_intervals": 186
+   },
+   {
+    "date": "2026-06-10",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 46.47,
+    "reserve_slack_min_mw": -76.7,
+    "reserve_shortfall_intervals": 208
+   },
+   {
+    "date": "2026-06-11",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 8.82,
+    "reserve_slack_min_mw": -92.8,
+    "reserve_shortfall_intervals": 157
+   },
+   {
+    "date": "2026-06-12",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 1.9,
+    "reserve_slack_min_mw": -63.0,
+    "reserve_shortfall_intervals": 56
+   },
+   {
+    "date": "2026-06-13",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 1.02,
+    "reserve_slack_min_mw": -24.1,
+    "reserve_shortfall_intervals": 8
+   },
+   {
+    "date": "2026-06-14",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -63.0,
+    "reserve_shortfall_intervals": 55
+   },
+   {
+    "date": "2026-06-15",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 19.81,
+    "reserve_slack_min_mw": -83.8,
+    "reserve_shortfall_intervals": 159
+   },
+   {
+    "date": "2026-06-16",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 158.71,
+    "reserve_slack_min_mw": -123.0,
+    "reserve_shortfall_intervals": 220
+   },
+   {
+    "date": "2026-06-17",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 163.96,
+    "reserve_slack_min_mw": -123.0,
+    "reserve_shortfall_intervals": 220
+   },
+   {
+    "date": "2026-06-18",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 113.0,
+    "reserve_slack_min_mw": -97.9,
+    "reserve_shortfall_intervals": 247
+   },
+   {
+    "date": "2026-06-19",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 156.38,
+    "reserve_slack_min_mw": -123.0,
+    "reserve_shortfall_intervals": 205
+   },
+   {
+    "date": "2026-06-20",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 221.11,
+    "reserve_slack_min_mw": -93.0,
+    "reserve_shortfall_intervals": 152
+   },
+   {
+    "date": "2026-06-21",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -36.9,
+    "reserve_shortfall_intervals": 33
+   },
+   {
+    "date": "2026-06-22",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 15.25,
+    "reserve_slack_min_mw": -93.0,
+    "reserve_shortfall_intervals": 161
+   },
+   {
+    "date": "2026-06-23",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 100.64,
+    "reserve_slack_min_mw": -93.0,
+    "reserve_shortfall_intervals": 173
+   },
+   {
+    "date": "2026-06-24",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 37.42,
+    "reserve_slack_min_mw": -93.0,
+    "reserve_shortfall_intervals": 123
+   },
+   {
+    "date": "2026-06-25",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 514.61,
+    "reserve_slack_min_mw": -93.0,
+    "reserve_shortfall_intervals": 168
+   },
+   {
+    "date": "2026-06-26",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 6.27,
+    "reserve_slack_min_mw": -93.0,
+    "reserve_shortfall_intervals": 76
+   },
+   {
+    "date": "2026-06-27",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-28",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-29",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -4.5,
+    "reserve_shortfall_intervals": 2
+   },
+   {
+    "date": "2026-06-30",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.07,
+    "reserve_slack_min_mw": -93.0,
+    "reserve_shortfall_intervals": 56
+   },
+   {
+    "date": "2026-07-01",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-07-02",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-07-03",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -22.0,
+    "reserve_shortfall_intervals": 8
+   },
+   {
+    "date": "2026-07-04",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-07-05",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   }
+  ],
+  "mindanao": [
+   {
+    "date": "2026-04-07",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-08",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 1.56,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-09",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-10",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-11",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-12",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-13",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-14",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-15",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-16",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-17",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-18",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-19",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-20",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -7.9,
+    "reserve_shortfall_intervals": 1
+   },
+   {
+    "date": "2026-04-21",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-22",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-23",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-24",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -14.4,
+    "reserve_shortfall_intervals": 13
+   },
+   {
+    "date": "2026-04-25",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-26",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-27",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -4.3,
+    "reserve_shortfall_intervals": 5
+   },
+   {
+    "date": "2026-04-28",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -18.2,
+    "reserve_shortfall_intervals": 10
+   },
+   {
+    "date": "2026-04-29",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-04-30",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-01",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-02",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-03",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-04",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-05",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-06",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-07",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-08",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-09",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-10",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.6,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-11",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-12",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-13",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -94.3,
+    "reserve_shortfall_intervals": 42
+   },
+   {
+    "date": "2026-05-14",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -107.1,
+    "reserve_shortfall_intervals": 70
+   },
+   {
+    "date": "2026-05-15",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-16",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-17",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-18",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -5.8,
+    "reserve_shortfall_intervals": 1
+   },
+   {
+    "date": "2026-05-19",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -0.0,
+    "reserve_shortfall_intervals": 24
+   },
+   {
+    "date": "2026-05-20",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-21",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -91.0,
+    "reserve_shortfall_intervals": 32
+   },
+   {
+    "date": "2026-05-22",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -33.0,
+    "reserve_shortfall_intervals": 3
+   },
+   {
+    "date": "2026-05-23",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-24",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-25",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-26",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -0.0,
+    "reserve_shortfall_intervals": 12
+   },
+   {
+    "date": "2026-05-27",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-28",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-29",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-30",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-05-31",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-01",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-02",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-03",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-04",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-05",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-06",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-07",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -15.9,
+    "reserve_shortfall_intervals": 6
+   },
+   {
+    "date": "2026-06-08",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -110.9,
+    "reserve_shortfall_intervals": 167
+   },
+   {
+    "date": "2026-06-09",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 104.98,
+    "reserve_slack_min_mw": -122.5,
+    "reserve_shortfall_intervals": 191
+   },
+   {
+    "date": "2026-06-10",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 120.85,
+    "reserve_slack_min_mw": -138.0,
+    "reserve_shortfall_intervals": 190
+   },
+   {
+    "date": "2026-06-11",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -105.0,
+    "reserve_shortfall_intervals": 48
+   },
+   {
+    "date": "2026-06-12",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -51.6,
+    "reserve_shortfall_intervals": 11
+   },
+   {
+    "date": "2026-06-13",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 4.8,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-14",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-15",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -79.1,
+    "reserve_shortfall_intervals": 66
+   },
+   {
+    "date": "2026-06-16",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 2.53,
+    "reserve_slack_min_mw": -124.9,
+    "reserve_shortfall_intervals": 158
+   },
+   {
+    "date": "2026-06-17",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 2.4,
+    "reserve_slack_min_mw": -112.7,
+    "reserve_shortfall_intervals": 140
+   },
+   {
+    "date": "2026-06-18",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 51.13,
+    "reserve_slack_min_mw": -127.3,
+    "reserve_shortfall_intervals": 184
+   },
+   {
+    "date": "2026-06-19",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -114.1,
+    "reserve_shortfall_intervals": 107
+   },
+   {
+    "date": "2026-06-20",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.57,
+    "reserve_slack_min_mw": -130.0,
+    "reserve_shortfall_intervals": 139
+   },
+   {
+    "date": "2026-06-21",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": -51.6,
+    "reserve_shortfall_intervals": 23
+   },
+   {
+    "date": "2026-06-22",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 80.18,
+    "reserve_slack_min_mw": -132.7,
+    "reserve_shortfall_intervals": 170
+   },
+   {
+    "date": "2026-06-23",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 56.61,
+    "reserve_slack_min_mw": -124.5,
+    "reserve_shortfall_intervals": 174
+   },
+   {
+    "date": "2026-06-24",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 16.22,
+    "reserve_slack_min_mw": -97.5,
+    "reserve_shortfall_intervals": 105
+   },
+   {
+    "date": "2026-06-25",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.5,
+    "reserve_slack_min_mw": -99.9,
+    "reserve_shortfall_intervals": 89
+   },
+   {
+    "date": "2026-06-26",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-27",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-28",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-29",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-06-30",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-07-01",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-07-02",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-07-03",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-07-04",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 0.0,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   },
+   {
+    "date": "2026-07-05",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 2.83,
+    "reserve_slack_min_mw": 0.0,
+    "reserve_shortfall_intervals": 0
+   }
+  ]
+ },
+ "totals": {
+  "luzon": {
+   "days": 90,
+   "curtailment_days": 43,
+   "curtailed_mwh_total": 1083.7,
+   "worst_curtailment": {
+    "date": "2026-05-11",
+    "load_bid_peak_mw": 475.0,
+    "curtailed_mwh": 313.66,
+    "reserve_slack_min_mw": -8.7,
+    "reserve_shortfall_intervals": 1
+   },
+   "reserve_shortfall_days": 54,
+   "median_daily_min_reserve_slack_mw": -17.1
+  },
+  "visayas": {
+   "days": 90,
+   "curtailment_days": 34,
+   "curtailed_mwh_total": 2595.9,
+   "worst_curtailment": {
+    "date": "2026-06-25",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 514.61,
+    "reserve_slack_min_mw": -93.0,
+    "reserve_shortfall_intervals": 168
+   },
+   "reserve_shortfall_days": 57,
+   "median_daily_min_reserve_slack_mw": -36.2
+  },
+  "mindanao": {
+   "days": 90,
+   "curtailment_days": 14,
+   "curtailed_mwh_total": 445.8,
+   "worst_curtailment": {
+    "date": "2026-06-10",
+    "load_bid_peak_mw": 0.0,
+    "curtailed_mwh": 120.85,
+    "reserve_slack_min_mw": -138.0,
+    "reserve_shortfall_intervals": 190
+   },
+   "reserve_shortfall_days": 28,
+   "median_daily_min_reserve_slack_mw": 0.0
+  }
+ }
+}
