@@ -1,0 +1,90 @@
+#!/usr/bin/env python3
+"""QA gate: banned framings, em-dash ban, AI-jargon ban, and overwrought-voice
+sweep across every user-visible artifact. A failure here means the map is about
+to make a claim that gets fact-checked to death or reads as machine-written.
+Run: python3 tests/qa_gate.py
+"""
+import glob
+import os
+import re
+import sys
+
+ROOT = os.path.join(os.path.dirname(__file__), "..")
+TARGETS = (glob.glob(os.path.join(ROOT, "web", "*.html"))
+           + glob.glob(os.path.join(ROOT, "web", "data", "*.json"))
+           + [os.path.join(ROOT, "README.md")])
+
+fails = []
+
+# Banned framings for THIS project (CLAUDE.md stance). Data-center attribution
+# and brownout prophecy are the two ways this map gets torn apart.
+BANNED = [
+    ("'data centers raised/spiked prices' (current DC load is small; unproven attribution)",
+     r"data\s+cent(er|re)s?\s+(have\s+)?(raised|spiked|drove|caused|pushed\s+up|increased)\s+(wesm|spot|power|electricity)?\s*prices"),
+    ("'will cause brownouts' (prophecy; use observed curtailment/alerts)",
+     r"will\s+cause\s+(brownouts|blackouts|rotating\s+outages)"),
+    ("'ghost'/'fraud' style accusation (conservative language only)",
+     r"\b(fraudulent|thieves?|plunder(ed|ing)?)\b"),
+    ("capacity/wholesale % stated as a bill % (keep wholesale and bill apart)",
+     r"bill(s)?\s+(rose|up|jumped|climbed)\s+38\.5\s*%"),
+]
+
+AI_JARGON = [
+    "delve", "leverage", "utilize", "seamless", "robust", "tapestry", "pivotal",
+    "in today's", "it's important to note", "game-changer", "cutting-edge",
+    "navigate the complexities", "ever-evolving", "underscore", "showcase",
+    "testament", "paramount", "plethora", "myriad", "at the forefront",
+    "crucial", "comprehensive",
+]
+
+OVERWROUGHT = [
+    ("dramatic number-verb (skyrocket/plummet/spiral/unleash/shatter)",
+     r"\b(skyrocket|plummet|spiral|unleash|shatter)(ed|ing|s)?\b"),
+    ("'broke from/away' trend metaphor", r"\bbroke\s+(from|away|out)\b"),
+    ("'the pack' metaphor", r"\bthe\s+pack\b"),
+    ("'grid on the brink/edge of collapse' (alert language, not doom copy)",
+     r"\b(brink|edge)\s+of\s+collapse\b"),
+]
+
+
+def scan(path, text):
+    base = os.path.basename(path)
+    if "—" in text:
+        fails.append(f"{base}: contains em-dash")
+    # '1.5 GW' must be labeled as the DICT forecast somewhere NEAR the number
+    # (before or after; the regex-lookahead version missed 'DICT: ... 1.5 GW').
+    for m in re.finditer(r"1\.5\s*GW", text):
+        window = text[max(0, m.start() - 160):m.end() + 160].lower()
+        if "dict" not in window and "forecast" not in window:
+            fails.append(f"{base}: unlabeled '1.5 GW' (label the DICT forecast)")
+    low = text.lower()
+    for label, rx in BANNED:
+        if re.search(rx, text, re.I):
+            fails.append(f"{base}: BANNED framing {label}")
+    for j in AI_JARGON:
+        if j in low:
+            fails.append(f"{base}: AI-jargon '{j}'")
+    for label, rx in OVERWROUGHT:
+        if re.search(rx, text, re.I):
+            fails.append(f"{base}: overwrought voice {label}")
+
+
+def main():
+    scanned = 0
+    for path in TARGETS:
+        if not os.path.exists(path):
+            continue
+        with open(path, encoding="utf-8", errors="replace") as f:
+            scan(path, f.read())
+        scanned += 1
+    print(f"scanned {scanned} artifacts")
+    for f_ in fails:
+        print("FAIL " + f_)
+    if fails:
+        return 1
+    print("PASS qa gate clean")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
