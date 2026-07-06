@@ -1,0 +1,226 @@
+#!/usr/bin/env python3
+"""Archive IEMOP public market-data files into data/raw/<KEY>/.
+
+IEMOP's public window is a rolling ~90 days per dataset page; this archiver plus
+the daily cron turns that window into a permanent public archive (git history is
+the archive). Access mechanic verified 2026-07-05: each market-data page embeds
+post_id + min_date in a `var php = {...}` blob; POST to wp-admin/admin-ajax.php
+with action=display_filtered_market_data_files returns the full base64 file list;
+GET <page>?md_file=<b64> serves the file. No auth.
+
+Courtesy rules (IEMOP firewalls repeated errors): sequential fetches, 0.25 s
+sleep between requests, abort a dataset after 5 consecutive failures.
+
+Uses curl via subprocess (macOS python3 + requests has TLS issues; curl exists
+on both macOS and ubuntu runners).
+
+    python3 pipeline/archive_iemop.py --backfill                # full window
+    python3 pipeline/archive_iemop.py --daily                   # last 2 PHT days
+    python3 pipeline/archive_iemop.py --only RTDCV,LWAPF
+    python3 pipeline/archive_iemop.py --backfill --dipcef-days 3
+"""
+from __future__ import annotations
+
+import argparse
+import base64
+import json
+import os
+import re
+import subprocess
+import sys
+import time
+from datetime import datetime, timedelta, timezone
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+RAW = os.path.join(HERE, "..", "data", "raw")
+BASE = "https://www.iemop.ph/market-data"
+AJAX = "https://www.iemop.ph/wp-admin/admin-ajax.php"
+UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+      "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36")
+SLEEP = 0.25
+MAX_CONSECUTIVE_ERRORS = 5
+PHT = timezone(timedelta(hours=8))
+
+# key -> iemop.ph/market-data/<slug>/. DIPCEF is hourly zips (nodal LMP with the
+# LMP_CONGESTION component); fetched for the last --dipcef-days only to keep the
+# repo light. Everything else is one small CSV per day.
+DATASETS = {
+    "RTDCV": "congestions-manifesting-in-rtd",
+    "DAPCV": "congestions-manifesting-in-dap",
+    "RTDSUM": "rtd-regional-summaries",
+    "LWAPF": "load-weighted-average-prices-final",
+    "HVDCRTD": "hvdc-limits-imposed-in-rtd",
+    "OUTRTD": "outage-schedules-used-in-rtd",
+    "DIPCEF": "dipc-energy-results-final",
+}
+
+
+def curl(args: list[str], timeout: int = 60) -> tuple[int, bytes]:
+    """Run curl, return (exit_code, stdout_bytes)."""
+    try:
+        p = subprocess.run(["curl", "-s", "-m", str(timeout), "-A", UA] + args,
+                           capture_output=True, timeout=timeout + 15)
+        return p.returncode, p.stdout
+    except subprocess.TimeoutExpired:
+        return 124, b""
+
+
+def page_config(slug: str) -> tuple[str, str]:
+    """Return (post_id, min_date) from the dataset page's php config blob."""
+    code, body = curl(["-L", f"{BASE}/{slug}/"])
+    if code != 0 or not body:
+        raise RuntimeError(f"page fetch failed for {slug} (curl exit {code})")
+    text = body.decode("utf-8", "replace").replace("\\", "")
+    pid = re.search(r'"post_id":"(\d+)"', text)
+    mind = re.search(r'"min_date":"([^"]+)"', text)
+    if not pid:
+        raise RuntimeError(f"no post_id found on {slug}")
+    return pid.group(1), (mind.group(1) if mind else "")
+
+
+def list_files(slug: str, post_id: str) -> list[tuple[str, str]]:
+    """Return [(b64_server_path, filename), ...] newest first."""
+    code, body = curl(["-X", "POST", AJAX, "--data",
+                       "action=display_filtered_market_data_files&sort="
+                       f"&datefilter=&page=1&post_id={post_id}"])
+    if code != 0 or not body:
+        raise RuntimeError(f"ajax list failed for {slug} (curl exit {code})")
+    data = json.loads(body)
+    out = []
+    for b64 in data.get("source", []):
+        try:
+            path = base64.b64decode(b64).decode()
+        except Exception:
+            continue
+        name = os.path.basename(path)
+        if name:
+            out.append((b64, name))
+    return out
+
+
+def looks_valid(dest: str) -> bool:
+    """A real file, not the WP 404 page. Header-only CSVs (a day with no
+    congestion) are valid and small, so the floor is low."""
+    if not os.path.isfile(dest) or os.path.getsize(dest) < 20:
+        return False
+    with open(dest, "rb") as f:
+        head = f.read(200).lstrip().lower()
+    return not (head.startswith(b"<!doctype") or head.startswith(b"<html"))
+
+
+def fetch(slug: str, b64: str, dest: str) -> bool:
+    code, body = curl([f"{BASE}/{slug}/?md_file={b64}", "-o", dest])
+    if code != 0:
+        return False
+    if not looks_valid(dest):
+        if os.path.exists(dest):
+            os.remove(dest)
+        return False
+    return True
+
+
+def recent_pht_stamps(days: int) -> set[str]:
+    now = datetime.now(PHT)
+    return {(now - timedelta(days=d)).strftime("%Y%m%d") for d in range(days)}
+
+
+def wanted(key: str, name: str, mode: str, dipcef_days: int,
+           newest_stamp: str = "") -> bool:
+    m = re.search(r"(\d{8})", name)
+    stamp = m.group(1) if m else ""
+    if key == "DIPCEF":
+        # Settlement-final files lag publication by days; filter relative to the
+        # newest stamp IN THE LISTING, not to today.
+        if dipcef_days <= 0 or not stamp or not newest_stamp:
+            return False
+        anchor = datetime.strptime(newest_stamp, "%Y%m%d")
+        keep = {(anchor - timedelta(days=d)).strftime("%Y%m%d")
+                for d in range(dipcef_days)}
+        return stamp in keep
+    if mode == "daily":
+        return stamp in recent_pht_stamps(2)
+    return True
+
+
+def archive(keys: list[str], mode: str, dipcef_days: int) -> dict:
+    manifest_path = os.path.join(RAW, "manifest.json")
+    manifest = {}
+    if os.path.exists(manifest_path):
+        with open(manifest_path) as f:
+            manifest = json.load(f)
+    for key in keys:
+        slug = DATASETS[key]
+        ddir = os.path.join(RAW, key)
+        os.makedirs(ddir, exist_ok=True)
+        try:
+            post_id, min_date = page_config(slug)
+            time.sleep(SLEEP)
+            files = list_files(slug, post_id)
+        except (RuntimeError, json.JSONDecodeError) as e:
+            print(f"{key}: LIST FAILED: {e}")
+            continue
+        fetched = skipped = errors = 0
+        consecutive = 0
+        stamps_all = [m.group(1) for _, n in files
+                      if (m := re.search(r"(\d{8})", n))]
+        newest_stamp = max(stamps_all) if stamps_all else ""
+        for b64, name in files:
+            if not wanted(key, name, mode, dipcef_days, newest_stamp):
+                continue
+            dest = os.path.join(ddir, name)
+            if looks_valid(dest):
+                skipped += 1
+                continue
+            ok = fetch(slug, b64, dest)
+            time.sleep(SLEEP)
+            if ok:
+                fetched += 1
+                consecutive = 0
+            else:
+                errors += 1
+                consecutive += 1
+                if consecutive >= MAX_CONSECUTIVE_ERRORS:
+                    print(f"{key}: aborting after {consecutive} consecutive errors")
+                    break
+        have = sorted(os.listdir(ddir))
+        stamps = [re.search(r"(\d{8})", n).group(1)
+                  for n in have if re.search(r"(\d{8})", n)]
+        manifest[key] = {
+            "slug": slug, "post_id": post_id, "page_min_date": min_date,
+            "files": len(have),
+            "bytes": sum(os.path.getsize(os.path.join(ddir, n)) for n in have),
+            "oldest": min(stamps) if stamps else None,
+            "newest": max(stamps) if stamps else None,
+        }
+        print(f"{key}: listed {len(files)}, fetched {fetched}, "
+              f"skipped {skipped}, errors {errors}, on disk {len(have)}")
+    manifest["fetched_at_utc"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    os.makedirs(RAW, exist_ok=True)
+    with open(manifest_path, "w") as f:
+        json.dump(manifest, f, indent=1, sort_keys=True)
+    return manifest
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    g = ap.add_mutually_exclusive_group(required=True)
+    g.add_argument("--backfill", action="store_true", help="full public window")
+    g.add_argument("--daily", action="store_true", help="last 2 PHT days only")
+    ap.add_argument("--only", help="comma-separated dataset keys")
+    ap.add_argument("--dipcef-days", type=int, default=3,
+                    help="fetch DIPCEF hourly zips for the last N days (0=skip)")
+    a = ap.parse_args()
+    keys = list(DATASETS)
+    if a.only:
+        keys = [k.strip().upper() for k in a.only.split(",")]
+        bad = [k for k in keys if k not in DATASETS]
+        if bad:
+            print(f"unknown dataset keys: {bad}")
+            return 2
+    mode = "daily" if a.daily else "backfill"
+    archive(keys, mode, a.dipcef_days)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
